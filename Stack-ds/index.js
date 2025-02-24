@@ -24,8 +24,3 @@ class Stack {
 }
 
 const stack = new Stack();
-stack.push(29)
-stack.push(39)
-console.log(stack.top());
-stack.pop()
-console.log(stack.stack)
