@@ -3,13 +3,13 @@ class Stack {
     this.stack = [];
   }
   top() {
-    if (isEmpty()) {
+    if (this.isEmpty()) {
       return null;
     }
     return this.stack[this.stack.length - 1];
   }
   push(item) {
-    this.stack = [...this.stack, ...item];
+    this.stack[this.stack.length] = item;
   }
   pop() {
     if (this.stack.length > 1) {
@@ -19,9 +19,13 @@ class Stack {
     }
   }
   isEmpty() {
-    return this.items.length === 0;
+    return this.stack.length === 0;
   }
 }
 
 const stack = new Stack();
-
+stack.push(29)
+stack.push(39)
+console.log(stack.top());
+stack.pop()
+console.log(stack.stack)
