@@ -12,11 +12,8 @@ class Stack {
     this.stack[this.stack.length] = item;
   }
   pop() {
-    if (this.stack.length > 1) {
-      this.stack.length = this.stack.length - 1;
-    } else {
-      this.stack = [];
-    }
+    if (this.isEmpty()) return null;
+    this.stack.length = this.stack.length - 1;
   }
   isEmpty() {
     return this.stack.length === 0;
