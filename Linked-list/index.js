@@ -57,12 +57,31 @@ class Linkedlist {
     } else {
       let current = this.head;
       for (let i = 0; i < index - 1; i++) {
-        current = current.next; 
+        current = current.next;
       }
-      current.next = current.next.next; 
+      current.next = current.next.next;
     }
     this.size--;
-
+  }
+  removeNode(value) {
+    let element = -1;
+    if (this.isEmpty()) return element;
+    let current = this.head;
+    this.size--;
+    for (let i = 0; i < this.size; i++) {
+      if (current.value === value) {
+        element = this.head;
+        this.head = current.next;
+        return element;
+      }
+      if (current.next.value === value) {
+        element = current.next;
+        current.next = current.next.next;
+        return element;
+      }
+      current = current.next;
+    }
+    return element;
   }
   isEmpty() {
     return this.head === null;
@@ -73,9 +92,10 @@ const l = new Linkedlist();
 
 l.append(20);
 l.append(10);
-l.prepend(30);
-l.prepend(300);
-l.insertAt(49, 1);
-l.removeFrom(4);
+l.append(30);
+// l.prepend(30);
+// l.prepend(300);
+// l.insertAt(49, 1);
+console.log("===>>", l.removeNode(10));
 console.log(l.head);
 console.log(l.size);
