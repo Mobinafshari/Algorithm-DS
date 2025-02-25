@@ -36,17 +36,33 @@ class Linkedlist {
     return (this.head = node);
   }
   insertAt(value, index) {
-    if(index > this.size) throw Error('Index Cannot be greater than the linked list size')
+    if (index > this.size)
+      throw Error("Index Cannot be greater than the linked list size");
     if (index === this.size) return this.append(value);
     if (index === 0) return this.prepend(value);
     const node = new Node(value);
     this.size++;
     let current = this.head;
     for (let i = 0; i < index - 1; i++) {
-        current = current.next;
+      current = current.next;
     }
     node.next = current.next;
     current.next = node;
+  }
+  removeFrom(index) {
+    if (index >= this.size || index < 0)
+      throw Error("Index Cannot be greater than the linked list size");
+    if (index === 0) {
+      this.head = this.head.next;
+    } else {
+      let current = this.head;
+      for (let i = 0; i < index - 1; i++) {
+        current = current.next; 
+      }
+      current.next = current.next.next; 
+    }
+    this.size--;
+
   }
   isEmpty() {
     return this.head === null;
@@ -60,6 +76,6 @@ l.append(10);
 l.prepend(30);
 l.prepend(300);
 l.insertAt(49, 1);
-
+l.removeFrom(4);
 console.log(l.head);
 console.log(l.size);
