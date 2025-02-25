@@ -1,7 +1,7 @@
 class Node {
-  constructor(value, next = null) {
+  constructor(value) {
     this.value = value;
-    this.next = next;
+    this.next = null;
   }
 }
 
@@ -21,10 +21,10 @@ class Linkedlist {
 
     let current = this.head;
     while (current.next !== null) {
-      current = current.next; 
+      current = current.next;
     }
 
-    current.next = node; 
+    current.next = node;
   }
   prepend(value) {
     const node = new Node(value);
@@ -36,9 +36,17 @@ class Linkedlist {
     return (this.head = node);
   }
   insertAt(value, index) {
+    if(index > this.size) throw Error('Index Cannot be greater than the linked list size')
     if (index === this.size) return this.append(value);
     if (index === 0) return this.prepend(value);
-    
+    const node = new Node(value);
+    this.size++;
+    let current = this.head;
+    for (let i = 0; i < index - 1; i++) {
+        current = current.next;
+    }
+    node.next = current.next;
+    current.next = node;
   }
   isEmpty() {
     return this.head === null;
@@ -50,9 +58,8 @@ const l = new Linkedlist();
 l.append(20);
 l.append(10);
 l.prepend(30);
-// l.append(30);
-l.insertAt(49, 3);
-// l.prepend(100);
-// l.insertAt(1000, 2);
+l.prepend(300);
+l.insertAt(49, 1);
+
 console.log(l.head);
 console.log(l.size);
