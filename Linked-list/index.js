@@ -8,6 +8,7 @@ class Node {
 class Linkedlist {
   constructor() {
     this.list = [];
+    
   }
   append(value) {
     let length = this.list.length;
