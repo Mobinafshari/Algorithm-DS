@@ -83,6 +83,38 @@ class Linkedlist {
     }
     return element;
   }
+  find(value){
+    let current = this.head;
+    while(current !== null){
+      if(current.value === value) return current;
+        current = current.next;
+    }
+    return null
+  }
+  getAt(index){
+    if (index >= this.size)
+      throw Error("Index Cannot be greater than the linked list size");
+    if(index === 0) return this.head;
+    let current = this.head;
+    let i = 0 ;
+    while( i !== index){
+      current = current.next;
+      i++;
+    }
+    return current
+  }
+  reverse() {
+    let prev = null;
+    let current = this.head;
+    
+    while (current !== null) {
+        let next = current.next; 
+        current.next = prev; 
+        prev = current; 
+        current = next; 
+    }
+
+    this.head = prev}
   isEmpty() {
     return this.head === null;
   }
@@ -94,8 +126,10 @@ l.append(20);
 l.append(10);
 l.append(30);
 // l.prepend(30);
-// l.prepend(300);
-// l.insertAt(49, 1);
-console.log("===>>", l.removeNode(10));
+l.prepend(300);
+l.insertAt(49, 1);
+// console.log("===>>", l.removeNode(10));
+// console.log(l.getAt(3))
+// l.reverse()
 console.log(l.head);
 console.log(l.size);
