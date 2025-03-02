@@ -66,7 +66,7 @@ class BinarySearchTree {
         if (current.left === null || current.right === null) {
           const child = current.left !== null ? current.left : current.right;
           if (parent === null) {
-            this.tree = child; 
+            this.tree = child;
           } else if (parent.left === current) {
             parent.left = child;
           } else {
@@ -77,8 +77,8 @@ class BinarySearchTree {
 
         const successor = this.findMin(current.right);
         const successorValue = successor.data;
-        this.remove(successorValue); 
-        current.data = successorValue; 
+        this.remove(successorValue);
+        current.data = successorValue;
         return;
       }
 
@@ -86,7 +86,37 @@ class BinarySearchTree {
       current = value > current.data ? current.right : current.left;
     }
 
-    return -1; 
+    return -1;
+  }
+  find(value) {
+    if (!this.tree) return false;
+    let current = this.tree;
+    while (current !== null) {
+      if (current.data === value) return true;
+      if (current.data < value) {
+        if (current.right !== null) {
+          current = current.right;
+        } else {
+          return false;
+        }
+      } else {
+        if (current.left !== null) {
+          current = current.left;
+        } else {
+          return false;
+        }
+      }
+    }
+  }
+  isFull() {
+    let node = this.tree;
+    if (node === null) return true;
+
+    if (node.left === null && node.right === null) return true;
+
+    if (node.left === null || node.right === null) return false;
+
+    return this.isFull(node.left) && this.isFull(node.right);
   }
 }
 
@@ -96,10 +126,5 @@ list.add(30);
 list.add(10);
 list.add(100);
 list.add(25);
-list.add(24);
-list.add(23);
-list.add(5);
-// list.add(500);
-list.add(15);
-list.remove(30);
+console.log(list.isFull());
 console.log(list.tree);
