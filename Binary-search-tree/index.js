@@ -108,8 +108,7 @@ class BinarySearchTree {
       }
     }
   }
-  isFull() {
-    let node = this.tree;
+  isFull(node = this.tree) {
     if (node === null) return true;
 
     if (node.left === null && node.right === null) return true;
@@ -118,13 +117,47 @@ class BinarySearchTree {
 
     return this.isFull(node.left) && this.isFull(node.right);
   }
+ inOrderTraversal(node = this.tree, result = []) {
+  if (node === null) {
+    return result;
+  }
+
+  if (node.left !== null) {
+console.log(node.data)
+    this.inOrderTraversal(node.left, result);
+  }
+  result.push(node.data);
+
+  if (node.right !== null) {
+    this.inOrderTraversal(node.right, result);
+  }
+
+  return result;
+}
+  preOrderTraversal(node = this.tree, result = []){
+   if (node === null) {
+    return result;
+  }
+  result.push(node.data)
+  if(node.left !== null){
+    this.preOrderTraversal(node.left , result)
+  }
+  
+  if(node.right !== null){
+    this.preOrderTraversal(node.right , result)
+  }
+  return result
+  } 
 }
 
 const list = new BinarySearchTree();
 list.add(20);
 list.add(30);
 list.add(10);
+list.add(5);
+list.add(11);
 list.add(100);
 list.add(25);
-console.log(list.isFull());
+// console.log(list.inOrderTraversal());
+list.remove(30)
 console.log(list.tree);
