@@ -65,6 +65,27 @@ class doublyLinkedList {
 
     return element;
   }
+  traverse() {
+    if (this.isEmpty()) return [];
+
+    let result = [];
+    let current = this.head;
+    let lastNode = null;
+
+    while (current) {
+      result.push(current.value);
+      lastNode = current;
+      current = current.next;
+    }
+
+    while (lastNode) {
+      result.push(lastNode.value);
+      lastNode = lastNode.prev;
+    }
+
+    return result;
+  }
+
   isEmpty() {
     return this.head === null;
   }
@@ -74,5 +95,4 @@ const list = new doublyLinkedList();
 list.add(5);
 list.add(15);
 list.add(25);
-list.remove(15);
-console.log(list.head);
+console.log(list.traverse());
