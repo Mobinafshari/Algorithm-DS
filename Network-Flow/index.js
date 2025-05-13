@@ -1,20 +1,65 @@
+class Edge {
+  constructor(to, capacity, flow, reverse) {
+    this.to = to;
+    this.capacity = capacity;
+    this.flow = flow;
+    this.reverse = reverse;
+  }
+}
+
 class Node {
-  constructor(value){
-    this.value = value;
+  constructor(name) {
+    this.name = name;
     this.edges = [];
   }
 }
 
-class graph{
-  constructor(){
-    this.list = []
+class Graph {
+  constructor() {
+    this.nodes = [];
   }
-  add(value){
-    const node = new Node(value);
-    this.list.push(node)
+
+  addNode(name) {
+    if (this.nodes.find((n) => n.name === name)) return;
+    const node = new Node(name);
+    this.nodes.push(node);
+  }
+
+  getNodeByName(name) {
+    return this.nodes.find((node) => node.name === name);
+  }
+
+  addEdge(fromName, toName, capacity) {
+    const fromNode = this.getNodeByName(fromName);
+    const toNode = this.getNodeByName(toName);
+
+    if (!fromNode || !toNode) {
+      throw new Error("Both nodes must exist before adding an edge.");
+    }
+
+    const forwardEdge = new Edge(toNode, capacity, 0, null);
+    const reverseEdge = new Edge(fromNode, 0, 0, forwardEdge);
+
+    forwardEdge.reverse = reverseEdge;
+
+    fromNode.edges.push(forwardEdge);
+    toNode.edges.push(reverseEdge);
   }
 }
 
-const gh = new graph();
-gh.add(10);
-console.log(gh.list)
+const gh = new Graph();
+
+gh.addNode("A");
+gh.addNode("B");
+gh.addNode("C");
+
+gh.addEdge("A", "B", 10);
+gh.addEdge("A", "C", 5);
+gh.addEdge("B", "C", 15);
+
+console.log("Edges from A:");
+gh.getNodeByName("A").edges.forEach((edge) => {
+  console.log(
+    `to: ${edge.to.name}, capacity: ${edge.capacity}, flow: ${edge.flow}`
+  );
+});
