@@ -58,8 +58,14 @@ gh.addEdge("A", "C", 5);
 gh.addEdge("B", "C", 15);
 
 console.log("Edges from A:");
+console.log(gh.nodes)
 gh.getNodeByName("A").edges.forEach((edge) => {
   console.log(
     `to: ${edge.to.name}, capacity: ${edge.capacity}, flow: ${edge.flow}`
   );
 });
+
+
+function fordFulkerson(graph, sourceName, sinkName) {
+
+}
