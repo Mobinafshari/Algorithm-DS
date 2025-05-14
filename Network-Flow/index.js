@@ -57,15 +57,44 @@ gh.addEdge("A", "B", 10);
 gh.addEdge("A", "C", 5);
 gh.addEdge("B", "C", 15);
 
-console.log("Edges from A:");
-console.log(gh.nodes)
-gh.getNodeByName("A").edges.forEach((edge) => {
-  console.log(
-    `to: ${edge.to.name}, capacity: ${edge.capacity}, flow: ${edge.flow}`
-  );
-});
-
-
 function fordFulkerson(graph, sourceName, sinkName) {
+  const source = graph.getNodeByName(sourceName);
+  const sink = graph.getNodeByName(sinkName);
+  let maxFlow = 0;
 
+  while (true) {
+    const visited = new Set();
+    const flow = dfs(source, sink, Infinity, visited);
+
+    if (flow === 0) break;
+
+    maxFlow += flow;
+  }
+
+  return maxFlow;
 }
+
+function dfs(current, sink, flow, visited) {
+  if (current === sink) return flow;
+
+  visited.add(current);
+
+  for (const edge of current.edges) {
+    const residual = edge.capacity - edge.flow;
+
+    if (residual > 0 && !visited.has(edge.to)) {
+      const bottleneck = dfs(edge.to, sink, Math.min(flow, residual), visited);
+
+      if (bottleneck > 0) {
+        edge.flow += bottleneck;
+        edge.reverse.flow -= bottleneck;
+        return bottleneck;
+      }
+    }
+  }
+
+  return 0;
+}
+
+const maxFlow = fordFulkerson(gh, "S", "T");
+console.log("Maximum Flow:", maxFlow);
