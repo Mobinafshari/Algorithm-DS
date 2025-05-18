@@ -76,7 +76,6 @@ function fordFulkerson(graph, sourceName, sinkName) {
 
 function dfs(current, sink, flow, visited) {
   if (current === sink) return flow;
-
   visited.add(current);
 
   for (const edge of current.edges) {
@@ -84,7 +83,6 @@ function dfs(current, sink, flow, visited) {
 
     if (residual > 0 && !visited.has(edge.to)) {
       const bottleneck = dfs(edge.to, sink, Math.min(flow, residual), visited);
-
       if (bottleneck > 0) {
         edge.flow += bottleneck;
         edge.reverse.flow -= bottleneck;
@@ -96,5 +94,6 @@ function dfs(current, sink, flow, visited) {
   return 0;
 }
 
-const maxFlow = fordFulkerson(gh, "S", "T");
-console.log("Maximum Flow:", maxFlow);
+
+const maxFlow = fordFulkerson(gh, "A", "C"); 
+console.log("Maximum Flow:", maxFlow); 
