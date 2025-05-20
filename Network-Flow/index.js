@@ -93,7 +93,16 @@ function dfs(current, sink, flow, visited) {
 
   return 0;
 }
-
+function printFlows(graph) {
+  for (const node of graph.nodes) {
+    for (const edge of node.edges) {
+      if (edge.capacity > 0) {
+        console.log(`${node.name} -> ${edge.to.name} | flow: ${edge.flow}/${edge.capacity}`);
+      }
+    }
+  }
+}
 
 const maxFlow = fordFulkerson(gh, "A", "C"); 
 console.log("Maximum Flow:", maxFlow); 
+printFlows(gh);
