@@ -28,7 +28,9 @@ class DAG {
         return [...this.nodes.values()]
     }
 }
-
+function topologicalSort(graph) {
+    
+}
 const dag = new DAG();
 
 dag.addEdge("A", "C");
