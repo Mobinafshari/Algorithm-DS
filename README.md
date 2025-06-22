@@ -1,6 +1,6 @@
 # Data Structures and Algorithms Practice
 
-This repository is a personal collection of implemented data structures and algorithms for learning and practice purposes.
+This repository is a personal collection of implemented data structures and algorithms for learning and practice purposes and I will implement them several times.
 
 ## Implemented Data Structures and Algorithms
 
