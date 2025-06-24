@@ -1,11 +1,32 @@
 function kruskal(numNodes, edges) {
-  return "hello";
+  const sortedEdges = edges.sort((a, b) => a.weight - b.weight);
+  const MST = [];
+  for (edge of sortedEdges) {
+    cycleCheck(edge);
+  }
+  function cycleCheck(edge) {
+    const { from, to, weight } = edge;
+    let existed = from;
+    while (existed !== -1) {
+      existedObj = MST.find((e) => e.from === existed);
+      if (existedObj === undefined) break;
+      existed = existedObj?.to;
+    }
+    console.log("===>", to, existed);
+    if (existed === to) return;
+    MST.push({ from, to, weight });
+  }
+  // return MST;
 }
 
 const edges = [
-  [0, 1, 4],
-  [0, 2, 1],
-  [1, 2, 2],
-  [1, 3, 5],
-  [2, 3, 3],
+  { from: 0, to: 1, weight: 1 },
+  { from: 0, to: 3, weight: 3 },
+  { from: 0, to: 2, weight: 4 },
+  { from: 1, to: 2, weight: 2 },
+  { from: 2, to: 3, weight: 5 },
+  { from: 2, to: 4, weight: 6 },
+  { from: 3, to: 4, weight: 7 },
 ];
+
+console.log(kruskal(5, edges));
