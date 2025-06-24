@@ -1,0 +1,19 @@
+{
+  "name": "algorithm-ds",
+  "version": "1.0.0",
+  "description": "This repository is a personal collection of implemented data structures and algorithms for learning and practice purposes and I will implement them several times.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mobinafshari/Algorithm-DS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mobinafshari/Algorithm-DS/issues"
+  },
+  "homepage": "https://github.com/Mobinafshari/Algorithm-DS#readme"
+}
