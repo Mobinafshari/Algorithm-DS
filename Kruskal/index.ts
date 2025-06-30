@@ -10,8 +10,9 @@ function kruskal(numNodes: number, edges: EdgesType): EdgesType {
   const MST: EdgesType = [];
 
   const parent = Array.from({ length: numNodes }, (_, i) => i);
-
+  console.log("parent dadashh", parent);
   function find(u: number): number {
+    console.log("find --->>>>", u, parent[u]);
     if (parent[u] !== u) {
       parent[u] = find(parent[u]);
     }
@@ -21,12 +22,15 @@ function kruskal(numNodes: number, edges: EdgesType): EdgesType {
   function union(u: number, v: number): boolean {
     const rootU = find(u);
     const rootV = find(v);
+    console.log("union --->", rootU, rootV);
+
     if (rootU === rootV) return false;
     parent[rootV] = rootU;
     return true;
   }
 
   for (const edge of sortedEdges) {
+    console.log("edge ===>", edge);
     if (union(edge.from, edge.to)) {
       MST.push(edge);
     }
