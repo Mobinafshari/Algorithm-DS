@@ -44,9 +44,9 @@ const edges = [
   { from: 1, to: 2, weight: 2 },
   { from: 0, to: 2, weight: 4 },
   { from: 0, to: 3, weight: 3 },
-  { from: 2, to: 3, weight: 5 },
-  { from: 2, to: 4, weight: 6 },
-  { from: 3, to: 4, weight: 7 },
+  // { from: 2, to: 3, weight: 5 },
+  // { from: 2, to: 4, weight: 6 },
+  // { from: 3, to: 4, weight: 7 },
 ];
 
 console.log(kruskal(5, edges));
