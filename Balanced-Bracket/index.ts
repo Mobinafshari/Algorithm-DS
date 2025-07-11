@@ -1,32 +1,24 @@
-function isBalancedBrackets(str: string) {
-  const options = [
-    ["(", ")"],
-    ["[", "]"],
-    ["{", "}"],
-  ];
-  const splitted = str.split("");
-  const matchChars: Set<string[]> = new Set();
-  for (let char of splitted) {
-    let found = false;
+function isBalancedBrackets(str: string): boolean {
+  const bracketMap: Record<string, string> = {
+    ")": "(",
+    "]": "[",
+    "}": "{",
+  };
 
-    for (const item of matchChars) {
-      if (item.includes(char)) {
-        matchChars.delete(item);
-        found = true;
-        break;
+  const stack: string[] = [];
+
+  for (const char of str) {
+    if (Object.values(bracketMap).includes(char)) {
+      stack.push(char);
+    } else if (char in bracketMap) {
+      if (stack.pop() !== bracketMap[char]) {
+        return false;
       }
     }
-
-    if (found) continue;
-
-    const foundedChar = options
-      .find((option) => option.includes(char))
-      ?.filter((selected) => selected !== char);
-
-    matchChars.add(foundedChar!);
   }
+  console.log(stack);
 
-  return [...matchChars].length === 0;
+  return stack.length === 0;
 }
 
-console.log(isBalancedBrackets("([)"));
+console.log(isBalancedBrackets("([]"));
