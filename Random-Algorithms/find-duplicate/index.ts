@@ -1,5 +1,6 @@
 function findDuplicate(arr: number[]) {
-  console.log(arr);
+  const uniqueOnes = new Set(arr);
+  return [...uniqueOnes].length === arr.length;
 }
 
-findDuplicate([1, 2, 4]);
+console.log(findDuplicate([1, 2, 4]));
