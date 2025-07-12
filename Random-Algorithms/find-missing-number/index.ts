@@ -7,4 +7,12 @@ function findMissingNumberInSequence(numbers: number[]): number | undefined {
   }
 }
 
-console.log(findMissingNumberInSequence([3, 0, 4, 2, 1]));
+function secondFindMissingNumberInSequence(numbers: number[]): number {
+  const n = numbers.length;
+  const expectedSum = (n * (n + 1)) / 2;
+  const actualSum = numbers.reduce((a, b) => a + b, 0);
+  return expectedSum - actualSum;
+}
+  
+
+console.log(secondFindMissingNumberInSequence([3, 0, 4, 2, 1]));
