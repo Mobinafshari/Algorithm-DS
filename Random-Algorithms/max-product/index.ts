@@ -1,16 +1,24 @@
-function maxProduct(numbers: number[]): number {
-  const maxArray: number[] = [];
-  let maxNumber = 1;
-  let lastChosenIndex = 0;
-  for (let i = 0; i < numbers.length; i++) {
-    if (maxArray.length === 0) {
-      maxArray.push(numbers[i]);
-      maxNumber = maxNumber * numbers[i];
-      lastChosenIndex = i;
-    } else if (maxNumber * numbers[i] > maxNumber) {
-      maxArray.push(numbers[i]);
+function maxProduct(nums: number[]): number {
+  if (nums.length === 0) return 0;
+
+  let maxSoFar = nums[0];
+  let currentMax = nums[0];
+  let currentMin = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    const n = nums[i];
+
+    if (n < 0) {
+      [currentMax, currentMin] = [currentMin, currentMax];
     }
+
+    currentMax = Math.max(n, currentMax * n);
+    currentMin = Math.min(n, currentMin * n);
+
+    maxSoFar = Math.max(maxSoFar, currentMax);
   }
+
+  return maxSoFar;
 }
 
-maxProduct([1, 2, -3, 5, 1]);
+console.log(maxProduct([2, -5, -2, -4, 3, 0, -2, -3, -4]));
