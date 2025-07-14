@@ -1,21 +1,14 @@
 function mostCommonElements(numbers: number[], k: number): number[] {
-  const countedNumbers = {};
-  for (const number of numbers) {
-    if (Object.keys(countedNumbers).includes(`${number}`)) {
-      countedNumbers[number]++;
-      continue;
-    }
-    countedNumbers[number] = 1;
+  const countedNumbers: Record<number, number> = {};
+
+  for (const num of numbers) {
+    countedNumbers[num] = (countedNumbers[num] || 0) + 1;
   }
-  const result: number[] = [];
-  for (const [key, value] of (
-    Object.entries(countedNumbers) as [string, number][]
-  )
-    .sort(([, number1], [, number2]) => number2 - number1)
-    .slice(0, k)) {
-    result.push(+key);
-  }
-  return result;
+
+  return Object.entries(countedNumbers)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, k)
+    .map(([key]) => +key);
 }
 
 console.log(mostCommonElements([5, 5, 6, 6, 6, 7, 8, 8, 8, 8], 2));
