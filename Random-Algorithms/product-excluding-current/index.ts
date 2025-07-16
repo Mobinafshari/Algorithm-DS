@@ -1,7 +1,6 @@
 function arrayProductExcludingCurrent(numbers: number[]): number[] {
   const n = numbers.length;
   const result: number[] = Array(n).fill(1);
-
   let prefix = 1;
   for (let i = 0; i < n; i++) {
     result[i] = prefix;
@@ -17,4 +16,4 @@ function arrayProductExcludingCurrent(numbers: number[]): number[] {
   return result;
 }
 
-console.log(arrayProductExcludingCurrent([1, 2, 3])); // [6, 3, 2]
+console.log(arrayProductExcludingCurrent([1, 2, 3])); 
