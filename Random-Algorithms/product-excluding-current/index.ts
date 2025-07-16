@@ -1,12 +1,18 @@
 function arrayProductExcludingCurrent(numbers: number[]): number[] {
   const result: number[] = [];
   for (let i = 0; i < numbers.length; i++) {
-    const number = numbers[i];
-    for (let j = i + 1; j < numbers.length; j++) {
-      result.push(number * numbers[j]);
+    ExcludeCurrent(i);
+  }
+  function ExcludeCurrent(index) {
+    const innerNumbers = structuredClone(numbers);
+    innerNumbers.splice(index, 1);
+    let multiplyRes = 1;
+    for (const number of innerNumbers) {
+      multiplyRes = multiplyRes * number;
     }
+    result.push(Math.abs(multiplyRes));
   }
   return result;
 }
 
-console.log(arrayProductExcludingCurrent([1, 2, 3]));
+console.log(arrayProductExcludingCurrent([2, 0, 3]));
