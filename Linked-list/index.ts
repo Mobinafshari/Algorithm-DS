@@ -53,7 +53,7 @@ class LinkedList<T> {
       this.append(value);
       return this;
     } else if (index < 0 || index > this.length) {
-      throw Error("Index must be less than list length");
+      throw Error("Index must be less than list length and greater than 0");
     } else {
       const node = new CustomNode(value);
       let current = this.head;
@@ -72,6 +72,31 @@ class LinkedList<T> {
       return this;
     }
   }
+
+  remove(value: T): this | undefined {
+    let current = this.head;
+    let prev: CustomNode<T> | null = null;
+    while (current !== null) {
+      if (current?.value === value) {
+        if (prev === null) {
+          this.head = current.next;
+          this.length--;
+          return this;
+        } else if (current === this.tail) {
+          prev.next = null;
+          this.tail = prev;
+          this.length--;
+          return this;
+        }
+        prev.next = current.next;
+        this.length--;
+        return this;
+      }
+      prev = current;
+      current = current.next;
+    }
+    return undefined;
+  }
 }
 
 const list = new LinkedList<number>();
@@ -79,4 +104,5 @@ list.append(5);
 list.append(1000);
 list.append(120);
 list.prepend(1);
-console.log(list.insertAt(55, 1));
+list.insertAt(55, 1);
+console.log(list.remove(120));
