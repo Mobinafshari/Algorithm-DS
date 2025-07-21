@@ -3,6 +3,7 @@ class CustomNode<T> {
   next: CustomNode<T> | null;
   constructor(value: T) {
     this.value = value;
+    this.next = null;
   }
 }
 
@@ -18,36 +19,36 @@ class LinkedList<T> {
   private isEmpty(): boolean {
     return this.length === 0;
   }
-  append(value: T): void {
+  append(value: T): this {
     const node = new CustomNode(value);
     if (this.isEmpty()) {
       this.head = node;
       this.tail = node;
       this.length++;
-      return;
+      return this;
     }
     this.tail!.next = node;
     this.tail = node;
     this.length++;
+    return this;
   }
-  prepend(value: T): void {
+  prepend(value: T): this {
     const node = new CustomNode(value);
-
     if (this.isEmpty()) {
       this.head = node;
       this.tail = node;
       this.length++;
-      return;
+      return this;
     }
     node.next = this.head;
     this.head = node;
     this.length++;
+    return this;
   }
 }
 
-const list = new LinkedList();
+const list = new LinkedList<number>();
 list.append(5);
-list.append("hashem");
+list.append(1000);
 list.append(120);
-list.prepend(1)
-console.log(list.head);
+console.log(list.prepend(1))
