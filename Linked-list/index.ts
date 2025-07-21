@@ -97,6 +97,37 @@ class LinkedList<T> {
     }
     return undefined;
   }
+  removeAt(index: number): this | -1 {
+    if (index < 0 || index >= this.length) {
+      return -1;
+    }
+
+    let current = this.head;
+    let prev: CustomNode<T> | null = null;
+
+    if (index === 0) {
+      this.head = current!.next;
+      if (current === this.tail) {
+        this.tail = null;
+      }
+      this.length--;
+      return this;
+    }
+
+    for (let i = 0; i < index; i++) {
+      prev = current;
+      current = current!.next;
+    }
+
+    prev!.next = current!.next;
+
+    if (current === this.tail) {
+      this.tail = prev;
+    }
+
+    this.length--;
+    return this;
+  }
 }
 
 const list = new LinkedList<number>();
@@ -104,5 +135,8 @@ list.append(5);
 list.append(1000);
 list.append(120);
 list.prepend(1);
-list.insertAt(55, 1);
-console.log(list.remove(120));
+const res = list.insertAt(55, 1);
+list.removeAt(4);
+list.removeAt(3);
+console.log(res);
+// console.log(list.remove(120));
