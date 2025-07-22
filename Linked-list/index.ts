@@ -138,6 +138,23 @@ class LinkedList<T> {
     }
     return queue
   }
+  reverse() : this {
+  let prev: CustomNode<T> | null = null;
+  let current = this.head;
+  let next: CustomNode<T> | null = null;
+  this.tail = this.head;  
+
+  while (current !== null) {
+    next = current.next;  
+    current.next = prev; 
+    prev = current;       
+    current = next;       
+  }
+
+  this.head = prev;  
+  return this;
+}
+  
 }
 
 const list = new LinkedList<number>();
@@ -146,4 +163,5 @@ list.append(1000);
 list.append(120);
 list.prepend(1);
 const res = list.insertAt(55, 1);
-console.log(list.createQueue());
+console.log(list.reverse());
+
