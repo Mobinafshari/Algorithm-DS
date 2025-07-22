@@ -128,6 +128,16 @@ class LinkedList<T> {
     this.length--;
     return this;
   }
+  
+  createQueue() : T[]{
+    const queue = [];
+    let current = this.head;
+    while(current !== null){
+      queue.push(current.value);
+      current = current.next;
+    }
+    return queue
+  }
 }
 
 const list = new LinkedList<number>();
@@ -136,7 +146,4 @@ list.append(1000);
 list.append(120);
 list.prepend(1);
 const res = list.insertAt(55, 1);
-list.removeAt(4);
-list.removeAt(3);
-console.log(res);
-// console.log(list.remove(120));
+console.log(list.createQueue());
