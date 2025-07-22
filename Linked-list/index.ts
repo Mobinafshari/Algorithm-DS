@@ -9,7 +9,7 @@ class CustomNode<T> {
 
 class LinkedList<T> {
   public head: CustomNode<T> | null;
-  private tail: CustomNode<T> | null;
+  public tail: CustomNode<T> | null;
   private length: number;
   constructor() {
     this.head = null;
@@ -162,6 +162,19 @@ class LinkedList<T> {
     }
     return undefined;
   }
+  isCycle(): boolean {
+    let slow = this.head;
+    let fast = this.head;
+
+    while (fast !== null && fast.next !== null) {
+      slow = slow!.next;
+      fast = fast.next.next;
+
+      if (slow === fast) return true;
+    }
+
+    return false;
+  }
 }
 
 const list = new LinkedList<number>();
@@ -169,5 +182,5 @@ list.append(5);
 list.append(1000);
 list.append(120);
 list.prepend(1);
-const res = list.insertAt(55, 1);
-console.log(list.find(550));
+list.tail!.next = list.head;
+console.log(list.isCycle());
