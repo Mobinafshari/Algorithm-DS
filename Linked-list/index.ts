@@ -175,6 +175,10 @@ class LinkedList<T> {
 
     return false;
   }
+  mergeTwoSortedList() {}
+  mergeMultiSortedList() {}
+  removeChosenNode() {}
+  reorderList() {}
 }
 
 const list = new LinkedList<number>();
