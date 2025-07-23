@@ -175,16 +175,32 @@ class LinkedList<T> {
 
     return false;
   }
-  sort(): this {
-    if (this.length === 0 || this.length === 1) return this;
+  getMiddle(): CustomNode<T> | null {
     let slow = this.head;
     let fast = this.head;
-    let leftSide = slow;
-    while (fast !== null && fast.next?.next !== null) {
+    while (fast !== null && fast.next !== null) {
       slow = slow!.next;
-      fast = fast?.next!.next;
+      fast = fast.next.next;
     }
-    console.log("fast", slow);
+    return slow;
+  }
+  sort(): this {
+    if (this.length === 0 || this.length === 1) return this;
+    const middle = this.getMiddle();
+    let left = this.head;
+    let right: CustomNode<T> | null = null;
+    let current = this.head?.next;
+    for (let i = 0; i < this.length; i++) {
+      if (current === middle) {
+        left!.next = null;
+        right = current;
+        break;
+      }
+      left = left!.next;
+      current = current?.next;
+    }
+    console.log("left", left);
+    console.log("right", right);
   }
   mergeTwoSortedList(
     listOne: LinkedList<T>,
@@ -199,5 +215,8 @@ const list = new LinkedList<number>();
 list.append(5);
 list.append(1000);
 list.append(120);
+list.append(7);
+list.append(2);
+list.prepend(20);
 list.prepend(1);
 console.log(list.sort());
