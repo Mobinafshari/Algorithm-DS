@@ -175,7 +175,21 @@ class LinkedList<T> {
 
     return false;
   }
-  mergeTwoSortedList() {}
+  sort(): this {
+    if (this.length === 0 || this.length === 1) return this;
+    let slow = this.head;
+    let fast = this.head;
+    let leftSide = slow;
+    while (fast !== null && fast.next?.next !== null) {
+      slow = slow!.next;
+      fast = fast?.next!.next;
+    }
+    console.log("fast", slow);
+  }
+  mergeTwoSortedList(
+    listOne: LinkedList<T>,
+    listTwo: LinkedList<T>
+  ): LinkedList<T> {}
   mergeMultiSortedList() {}
   removeChosenNode() {}
   reorderList() {}
@@ -186,5 +200,4 @@ list.append(5);
 list.append(1000);
 list.append(120);
 list.prepend(1);
-list.tail!.next = list.head;
-console.log(list.isCycle());
+console.log(list.sort());
