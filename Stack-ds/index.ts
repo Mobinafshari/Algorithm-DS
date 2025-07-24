@@ -77,14 +77,22 @@ function evalRPN(tokens: string[]): number {
   }
   return stack.stack[0];
 }
+function dailyTemperatures(temperatures: number[]): number[] {
+  const res: number[] = new Array(temperatures.length).fill(0);
+  const stack = new Stack<number>();
 
-console.log(
-  evalRPN(["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"])
-);
+  for (let i = 0; i < temperatures.length; i++) {
+    while (
+      stack.stack.length > 0 &&
+      temperatures[i] > temperatures[stack.stack[stack.stack.length - 1]]
+    ) {
+      const prevIndex = stack.pop()!;
+      res[prevIndex] = i - prevIndex;
+    }
+    stack.push(i);
+  }
 
-// const ds = new Stack<number>();
-// ds.push(3);
-// ds.push(5);
-// ds.push(2);
-// ds.push(1);
-// ds.push(50);
+  return res;
+}
+
+console.log(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]));
