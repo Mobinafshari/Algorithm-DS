@@ -48,7 +48,40 @@ function asteroidCollision(asteroids: number[]): number[] {
   }
   return stack.stack;
 }
-console.log(asteroidCollision([5, 10, -5]));
+type Operator = "+" | "-" | "/" | "*";
+function evalRPN(tokens: string[]): number {
+  const stack = new Stack<number>();
+  for (const token of tokens) {
+    if (+token) {
+      stack.push(+token);
+      continue;
+    } else {
+      const b = stack.pop();
+      const a = stack.pop();
+      const result = evaluate(token as Operator, a!, b!);
+      stack.push(result);
+    }
+  }
+
+  function evaluate(op: Operator, a: number, b: number) {
+    switch (op) {
+      case "+":
+        return a + b;
+      case "*":
+        return a * b;
+      case "-":
+        return a - b;
+      case "/":
+        return Math.trunc(a / b);
+    }
+  }
+  return stack.stack[0];
+}
+
+console.log(
+  evalRPN(["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"])
+);
+
 // const ds = new Stack<number>();
 // ds.push(3);
 // ds.push(5);
