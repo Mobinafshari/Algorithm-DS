@@ -265,8 +265,29 @@ class LinkedList<T> {
   }
 
   mergeMultiSortedList() {}
-  removeChosenNode() {}
-  reorderList() {}
+  reorderList(): this {
+    const middle = this.getMiddle();
+    let current = this.head;
+    let leftSide = this.head;
+    let rightSide = middle;
+    while (current && current?.next !== middle) {
+      current = current.next;
+    }
+    if (current) {
+      current.next = null;
+    }
+
+    const listOne = new LinkedList<T>();
+    const listTwo = new LinkedList<T>();
+    listOne.head = leftSide;
+    listTwo.head = rightSide;
+    listTwo.reverse();
+    const merged = this.mergeTwoSortedList(listOne, listTwo);
+    this.head = merged.head;
+    this.tail = merged.tail;
+    this.length = merged.length;
+    return this;
+  }
 }
 
 const list = new LinkedList<number>();
@@ -277,4 +298,4 @@ list.append(7);
 list.append(2);
 list.prepend(20);
 list.prepend(1);
-console.log(list.sort().createQueue());
+console.log(list.reorderList().createQueue());
