@@ -184,28 +184,86 @@ class LinkedList<T> {
     }
     return slow;
   }
+
   sort(): this {
     if (this.length === 0 || this.length === 1) return this;
+
     const middle = this.getMiddle();
-    let left = this.head;
-    let right: CustomNode<T> | null = null;
-    let current = this.head?.next;
-    for (let i = 0; i < this.length; i++) {
-      if (current === middle) {
-        left!.next = null;
-        right = current;
-        break;
-      }
-      left = left!.next;
-      current = current?.next;
+    let leftHead = this.head;
+    let rightHead = middle;
+
+    let current = this.head;
+    while (current && current.next !== middle) {
+      current = current.next;
     }
-    console.log("left", left);
-    console.log("right", right);
+
+    if (current) {
+      current.next = null;
+    }
+
+    const leftList = new LinkedList<T>();
+    leftList.head = leftHead;
+
+    const rightList = new LinkedList<T>();
+    rightList.head = rightHead;
+    leftList.updateTailAndLength();
+    rightList.updateTailAndLength();
+
+    const sortedLeft = leftList.sort();
+    const sortedRight = rightList.sort();
+
+    const merged = this.mergeTwoSortedList(sortedLeft, sortedRight);
+    this.head = merged.head;
+    this.tail = merged.tail;
+    this.length = merged.length;
+
+    return this;
   }
   mergeTwoSortedList(
     listOne: LinkedList<T>,
     listTwo: LinkedList<T>
-  ): LinkedList<T> {}
+  ): LinkedList<T> {
+    const merged = new LinkedList<T>();
+    let current1 = listOne.head;
+    let current2 = listTwo.head;
+
+    while (current1 !== null && current2 !== null) {
+      if (current1.value < current2.value) {
+        merged.append(current1.value);
+        current1 = current1.next;
+      } else {
+        merged.append(current2.value);
+        current2 = current2.next;
+      }
+    }
+
+    while (current1 !== null) {
+      merged.append(current1.value);
+      current1 = current1.next;
+    }
+
+    while (current2 !== null) {
+      merged.append(current2.value);
+      current2 = current2.next;
+    }
+
+    return merged;
+  }
+
+  updateTailAndLength(): this {
+    let n = 0;
+    let current = this.head;
+    let prev: CustomNode<T> | null = null;
+    while (current !== null) {
+      prev = current;
+      current = current.next;
+      n++;
+    }
+    this.length = n;
+    this.tail = prev;
+    return this;
+  }
+
   mergeMultiSortedList() {}
   removeChosenNode() {}
   reorderList() {}
@@ -219,4 +277,4 @@ list.append(7);
 list.append(2);
 list.prepend(20);
 list.prepend(1);
-console.log(list.sort());
+console.log(list.sort().createQueue());
