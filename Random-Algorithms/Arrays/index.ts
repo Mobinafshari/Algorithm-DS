@@ -34,4 +34,43 @@ function maxProduct(nums: number[]): number {
   }
   return max;
 }
-console.log(maxProduct([-2, -1]));
+
+function maxProfit(prices: number[]): number {
+  let buy = Infinity;
+  let sell = 0;
+  let profit = 0;
+  for (const price of prices) {
+    if (price < buy) {
+      buy = price;
+      sell = 0;
+      continue;
+    } else if (price > sell) {
+      sell = price;
+      profit = sell - buy > profit ? sell - buy : profit;
+      continue;
+    }
+  }
+  return profit;
+}
+
+function productExceptSelf(nums: number[]): number[] {
+  const n = nums.length;
+  const result: number[] = new Array(n).fill(1);
+
+  let prefix = 1;
+  for (let i = 0; i < n; i++) {
+    result[i] = prefix;
+    prefix *= nums[i];
+  }
+
+  let suffix = 1;
+  for (let i = n - 1; i >= 0; i--) {
+    result[i] *= suffix;
+    suffix *= nums[i];
+  }
+
+  return result;
+}
+
+
+console.log(productExceptSelf([1, 2, 3, 4]));
