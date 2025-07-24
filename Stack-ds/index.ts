@@ -35,13 +35,23 @@ class Stack<T> {
 }
 
 function asteroidCollision(asteroids: number[]): number[] {
-    
-};
-
-const ds = new Stack<number>();
-ds.push(3);
-ds.push(5);
-ds.push(2);
-ds.push(1);
-ds.push(50);
-console.log(ds.getMin());
+  const stack = new Stack<number>();
+  for (const number of asteroids) {
+    if (number > 0) {
+      stack.push(number);
+      continue;
+    }
+    const top = stack.peek();
+    if (top && number * -1 > top) {
+      stack.pop();
+    }
+  }
+  return stack.stack;
+}
+console.log(asteroidCollision([5, 10, -5]));
+// const ds = new Stack<number>();
+// ds.push(3);
+// ds.push(5);
+// ds.push(2);
+// ds.push(1);
+// ds.push(50);
