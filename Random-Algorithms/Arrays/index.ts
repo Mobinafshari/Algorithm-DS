@@ -72,5 +72,21 @@ function productExceptSelf(nums: number[]): number[] {
   return result;
 }
 
+function maxSubArray(nums: number[]): number {
+  let max = Infinity * -1;
+  let sum = 0;
+  for (const number of nums) {
+    if (number > max) {
+      sum += number;
+      max = sum;
+    } else if (sum + number < 0) {
+      sum = 0;
+    } else {
+      sum += number;
+      max = sum  > max ? sum  : max
+    }
+  }
+  return max;
+}
 
-console.log(productExceptSelf([1, 2, 3, 4]));
+console.log(maxSubArray([5, 4, -1, 7, 8]));
