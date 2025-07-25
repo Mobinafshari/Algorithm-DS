@@ -1,34 +1,50 @@
-class Queue<T> {
-  public list: T[];
-  constructor() {
-    this.list = [];
+class CircularQueue<T> {
+  private queue: (T | null)[];
+  private head: number;
+  private tail: number;
+  private size: number;
+  private count: number;
+
+  constructor(k: number) {
+    this.queue = new Array(k).fill(null);
+    this.size = k;
+    this.head = 0;
+    this.tail = 0;
+    this.count = 0;
   }
 
-  push(value: T): this {
-    this.list[this.list.length] = value;
-    return this;
+  enQueue(value: T): boolean {
+    if (this.isFull()) return false;
+
+    this.queue[this.tail] = value;
+    this.tail = (this.tail + 1) % this.size;
+    this.count++;
+    return true;
   }
 
-  pop(): T | undefined {
-    if (this.isEmpty()) return undefined;
-    const removed = this.list[0];
-    for (let i = 1; i < this.list.length; i++) {
-      this.list[i - 1] = this.list[i];
-    }
-    this.list.length--;
-    return removed;
+  deQueue(): boolean {
+    if (this.isEmpty()) return false;
+
+    this.queue[this.head] = null;
+    this.head = (this.head + 1) % this.size;
+    this.count--;
+    return true;
   }
-  peek(): T {
-    return this.list[0];
+
+  Front(): T | null {
+    return this.isEmpty() ? null : this.queue[this.head];
   }
+
+  Rear(): T | null {
+    if (this.isEmpty()) return null;
+    return this.queue[(this.tail - 1 + this.size) % this.size];
+  }
+
   isEmpty(): boolean {
-    return this.list.length === 0;
+    return this.count === 0;
+  }
+
+  isFull(): boolean {
+    return this.count === this.size;
   }
 }
-
-const q = new Queue<number>();
-
-q.push(10);
-q.push(24);
-q.push(78);
-console.log(q.pop());
