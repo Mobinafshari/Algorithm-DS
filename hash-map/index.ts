@@ -24,10 +24,23 @@ function canConstruct(ransomNote: string, magazine: string): boolean {
     if (wordsMap.has(word)) {
       if (wordsMap.get(word) === 0) return false;
       wordsMap.set(word, wordsMap.get(word)! - 1);
-      continue;
     }
     return false;
   }
   return true;
 }
 
+function groupAnagrams(strs: string[]): string[][] {
+  const group = new Map<string, string[]>();
+  for (const str of strs) {
+    const words = str.split("").sort().join("");
+    if (group.has(words)) {
+      group.set(words, [...group.get(words)!, str]);
+      continue;
+    }
+    group.set(words, [str]);
+  }
+  return Array.from(group.values());
+}
+
+console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
