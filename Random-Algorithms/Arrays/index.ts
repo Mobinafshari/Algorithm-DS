@@ -83,10 +83,14 @@ function maxSubArray(nums: number[]): number {
       sum = 0;
     } else {
       sum += number;
-      max = sum  > max ? sum  : max
+      max = sum > max ? sum : max;
     }
   }
   return max;
 }
 
-console.log(maxSubArray([5, 4, -1, 7, 8]));
+function containsDuplicate(nums: number[]): boolean {
+  const set = new Set(nums);
+  return set.size !== nums.length;
+}
+console.log(containsDuplicate([1, 2, 3, 1]));
