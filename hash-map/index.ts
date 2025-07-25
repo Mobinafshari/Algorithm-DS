@@ -43,4 +43,91 @@ function groupAnagrams(strs: string[]): string[][] {
   return Array.from(group.values());
 }
 
-console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
+class RandomizedSet {
+  private map: Map<number, number>;
+  private list: number[];
+
+  constructor() {
+    this.map = new Map();
+    this.list = [];
+  }
+
+  insert(val: number): boolean {
+    if (this.map.has(val)) return false;
+
+    this.list.push(val);
+    this.map.set(val, this.list.length - 1);
+    return true;
+  }
+
+  remove(val: number): boolean {
+    if (!this.map.has(val)) return false;
+
+    const idx = this.map.get(val)!;
+    const last = this.list[this.list.length - 1];
+
+    this.list[idx] = last;
+    this.map.set(last, idx);
+
+    this.list.pop();
+    this.map.delete(val);
+
+    return true;
+  }
+
+  getRandom(): number {
+    const randIndex = Math.floor(Math.random() * this.list.length);
+    return this.list[randIndex];
+  }
+}
+
+function firstMissingPositive(nums: number[]): number {
+  const positives = Array.from({ length: nums.length + 1 }).map(
+    (_, i) => i + 1
+  );
+  const set = new Set<number>(positives);
+  for (const num of nums) {
+    if (set.has(num)) {
+      set.delete(num);
+    }
+  }
+  return [...set][0];
+}
+
+class LRUCache {
+  private cache: Map<number, number>;
+  private capacity: number;
+
+  constructor(capacity: number) {
+    this.cache = new Map();
+    this.capacity = capacity;
+  }
+
+  get(key: number): number {
+    if (!this.cache.has(key)) return -1;
+
+    const value = this.cache.get(key)!;
+    this.cache.delete(key);
+    this.cache.set(key, value);
+    return value;
+  }
+
+  put(key: number, value: number): void {
+    if (this.cache.has(key)) {
+      this.cache.delete(key);
+    } else if (this.cache.size >= this.capacity) {
+      const lruKey = this.cache.keys().next().value;
+      this.cache.delete(lruKey);
+    }
+    this.cache.set(key, value);
+  }
+}
+
+const cache = new LRUCache(2);
+cache.put(1, 1);
+cache.put(2, 2);
+cache.put(3, 3);
+cache.put(4, 4);
+cache.put(6, 6);
+
+console.log(cache.get(6));
