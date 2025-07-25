@@ -55,4 +55,6 @@ q.enQueue(500);
 q.enQueue(50);
 q.deQueue();
 q.enQueue(100);
-console.log(q.Rear());
+q.enQueue(200);
+q.enQueue(300);
+console.log(q);
