@@ -48,3 +48,10 @@ class CircularQueue<T> {
     return this.count === this.size;
   }
 }
+const q = new CircularQueue<number>(5);
+q.enQueue(5)
+q.enQueue(500)
+q.enQueue(50)
+q.deQueue()
+q.enQueue(100)
+console.log(q.Rear())
