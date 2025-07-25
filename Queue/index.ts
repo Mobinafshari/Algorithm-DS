@@ -1,4 +1,4 @@
-class CircularQueue<T> {
+class MyCircularQueue<T> {
   private queue: (T | null)[];
   private head: number;
   private tail: number;
@@ -31,6 +31,7 @@ class CircularQueue<T> {
     return true;
   }
 
+
   Front(): T | null {
     return this.isEmpty() ? null : this.queue[this.head];
   }
@@ -48,10 +49,10 @@ class CircularQueue<T> {
     return this.count === this.size;
   }
 }
-const q = new CircularQueue<number>(5);
-q.enQueue(5)
-q.enQueue(500)
-q.enQueue(50)
-q.deQueue()
-q.enQueue(100)
-console.log(q.Rear())
+const q = new MyCircularQueue<number>(5);
+q.enQueue(5);
+q.enQueue(500);
+q.enQueue(50);
+q.deQueue();
+q.enQueue(100);
+console.log(q.Rear());
