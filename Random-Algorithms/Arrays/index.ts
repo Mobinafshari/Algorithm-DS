@@ -192,3 +192,22 @@ function sortArray(nums: number[]): number[] {
   }
 }
 
+function subarraySum(nums: number[], k: number): number {
+  const prefixMap = new Map<number, number>();
+  let sum = 0;
+  let count = 0;
+
+  prefixMap.set(0, 1);
+  for (const num of nums) {
+    sum += num;
+    const remain = sum - k;
+    if (prefixMap.has(remain)) {
+      count += prefixMap.get(remain)!;
+    }
+    prefixMap.set(sum, (prefixMap.get(sum) ?? 0) + 1);
+  }
+  console.log(prefixMap);
+  return count;
+}
+
+console.log(subarraySum([1, 1, 1], 2));
