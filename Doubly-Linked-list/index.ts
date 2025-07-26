@@ -1,7 +1,7 @@
 class Node<T> {
-  private value : T;
-  private next : Node<T> | null;
-  private prev : Node<T> | null;
+   value : T;
+   next : Node<T> | null;
+   prev : Node<T> | null;
   constructor(value :T){
     this.value = value;
     this.next = null;
@@ -26,14 +26,12 @@ class DoublyList<T> {
       this.length++
       return this
     }
-    let current = this.head;
-    while(current.next !== null){
-      current = current?.next;
-    }
-    current.next = node;
-    node.prev = current;
-    this.length++
-    this.tail = node;
+    if (this.tail) {
+  this.tail.next = node;
+  node.prev = this.tail;
+  this.tail = node;
+}
+
     return this
   }
   prepend(value : T) : this {
@@ -51,6 +49,40 @@ class DoublyList<T> {
     this.length++;
     return this
   }
+  insert(index : number, value:T) : this {
+    if(index === 0) return this.append(value);
+    if(index === this.length) return this.prepend(value);
+    const node = new Node<T>(value);
+    let current = this.head;
+    let i = index;
+    while(current.next !== null){
+      if(i === 0 ) break;
+      current = current.next;
+      i--
+    }
+    const nextNode = current.next;
+    current.next = node;
+    node.prev = current;
+    node.next = nextNode;
+    nextNode?.prev = node;
+    this.length++;
+  }
+   append(value : T) : this {
+    const node = new Node<T>(value)
+    if(this.isEmpty()){
+      this.head = node;
+      this.tail = node;
+      this.length++
+      return this
+    }
+    if (this.tail) {
+  this.tail.next = node;
+  node.prev = this.tail;
+  this.tail = node;
+}
+
+    return this
+  }
   isEmpty():boolean{
     return this.length === 0
   }
@@ -60,4 +92,11 @@ class DoublyList<T> {
 const list = new DoublyList<number>();
 list.append(5);
 list.append(10)
-console.log(list.prepend(25))
+console.log(list.insert( 1,25))
+
+
+
+
+
+
+
