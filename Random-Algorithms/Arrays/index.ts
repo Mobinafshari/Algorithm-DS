@@ -192,4 +192,3 @@ function sortArray(nums: number[]): number[] {
   }
 }
 
-console.log(sortArray([5, 2, 3, 1]));
