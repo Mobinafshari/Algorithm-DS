@@ -1,5 +1,5 @@
 // function twoSum(nums: number[], target: number): number[] {
-//   const map = new Map<number, number>();
+//   `cons`t map = new Map<number, number>();
 
 //   for (let i = 0; i < nums.length; i++) {
 //     const complement = target - nums[i];
@@ -147,5 +147,49 @@ function threeSum(nums: number[]): number[][] {
 
   return res;
 }
+function sortArray(nums: number[]): number[] {
+  return sort(nums);
 
-console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+  function sort(numbers: number[]): number[] {
+    if (numbers.length < 2) return numbers;
+
+    const middle = Math.floor(numbers.length / 2);
+    const left = numbers.slice(0, middle);
+    const right = numbers.slice(middle);
+
+    const sortedLeft = sort(left);
+    const sortedRight = sort(right);
+
+    return merge(sortedLeft, sortedRight);
+  }
+
+  function merge(arrOne: number[], arrTwo: number[]): number[] {
+    const res: number[] = [];
+    let i = 0;
+    let j = 0;
+
+    while (i < arrOne.length && j < arrTwo.length) {
+      if (arrOne[i] <= arrTwo[j]) {
+        res.push(arrOne[i]);
+        i++;
+      } else {
+        res.push(arrTwo[j]);
+        j++;
+      }
+    }
+
+    while (i < arrOne.length) {
+      res.push(arrOne[i]);
+      i++;
+    }
+
+    while (j < arrTwo.length) {
+      res.push(arrTwo[j]);
+      j++;
+    }
+
+    return res;
+  }
+}
+
+console.log(sortArray([5, 2, 3, 1]));
