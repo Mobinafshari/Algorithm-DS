@@ -126,7 +126,6 @@ function productExceptSelf(nums: number[]): number[] {
   }
   return res;
 }
-console.log(productExceptSelf([1, 2, 3, 4]));
 
 function maxSubArray(nums: number[]): number {
   let max = Infinity * -1;
