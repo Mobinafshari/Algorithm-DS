@@ -127,18 +127,34 @@ function productExceptSelf(nums: number[]): number[] {
   return res;
 }
 
+// function maxSubArray(nums: number[]): number {
+//   let max = Infinity * -1;
+//   let sum = 0;
+//   for (const number of nums) {
+//     if (number > max) {
+//       sum += number;
+//       max = sum;
+//     } else if (sum + number < 0) {
+//       sum = 0;
+//     } else {
+//       sum += number;
+//       max = sum > max ? sum : max;
+//     }
+//   }
+//   return max;
+// }
 function maxSubArray(nums: number[]): number {
   let max = Infinity * -1;
   let sum = 0;
   for (const number of nums) {
     if (number > max) {
-      sum += number;
-      max = sum;
-    } else if (sum + number < 0) {
+      sum = Math.max(number, sum + number);
+      max = Math.max(sum, number);
+    } else if (number + sum < 0) {
       sum = 0;
     } else {
       sum += number;
-      max = sum > max ? sum : max;
+      max = Math.max(max, sum);
     }
   }
   return max;
