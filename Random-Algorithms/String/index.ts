@@ -17,4 +17,24 @@ function countSubstrings(s: string): number {
   return count;
 }
 
-console.log(countSubstrings("aaa"));
+function isValid(s: string): boolean {
+  const stack: string[] = [];
+  const map: Record<string, string> = {
+    ")": "(",
+    "]": "[",
+    "}": "{",
+  };
+
+  for (const char of s) {
+    if (["(", "[", "{"].includes(char)) {
+      stack.push(char);
+    } else {
+      const top = stack.pop();
+      if (top !== map[char]) return false;
+    }
+  }
+
+  return stack.length === 0;
+}
+
+console.log(isValid("()"));
