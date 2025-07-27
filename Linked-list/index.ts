@@ -184,6 +184,64 @@ class LinkedList<T> {
     }
     return slow;
   }
+  getMiddle2(): CustomNode<T> | null {
+    let slow = this.head;
+    let fast = this.head;
+    let prev: CustomNode<T> | null = null;
+    while (fast !== null && fast.next !== null) {
+      prev = slow;
+      slow = slow!.next;
+      fast = fast.next.next;
+    }
+    return prev;
+  }
+  sort2(): LinkedList<T> {
+    if (!this.head || !this.head.next) return this;
+
+    const middle = this.getMiddle2();
+    const rightHead = middle!.next;
+    middle!.next = null;
+
+    const leftList = new LinkedList<T>();
+    leftList.head = this.head;
+
+    const rightList = new LinkedList<T>();
+    rightList.head = rightHead;
+
+    const sortedLeft = leftList.sort2();
+    const sortedRight = rightList.sort2();
+
+    return this.mergeSort2(sortedLeft, sortedRight);
+  }
+
+  mergeSort2(listOne: LinkedList<T>, listTwo: LinkedList<T>): LinkedList<T> {
+    const result = new LinkedList<T>();
+
+    let curr1 = listOne.head;
+    let curr2 = listTwo.head;
+
+    while (curr1 && curr2) {
+      if (curr1.value < curr2.value) {
+        result.append(curr1.value);
+        curr1 = curr1.next;
+      } else {
+        result.append(curr2.value);
+        curr2 = curr2.next;
+      }
+    }
+
+    while (curr1) {
+      result.append(curr1.value);
+      curr1 = curr1.next;
+    }
+
+    while (curr2) {
+      result.append(curr2.value);
+      curr2 = curr2.next;
+    }
+
+    return result;
+  }
 
   sort(): this {
     if (this.length === 0 || this.length === 1) return this;
@@ -264,7 +322,6 @@ class LinkedList<T> {
     return this;
   }
 
-  mergeMultiSortedList() {}
   reorderList(): this {
     const middle = this.getMiddle();
     let current = this.head;
@@ -296,6 +353,5 @@ list.append(1000);
 list.append(120);
 list.append(7);
 list.append(2);
-list.prepend(20);
-list.prepend(1);
-console.log(list.reorderList().createQueue());
+
+console.log(list.sort2());
