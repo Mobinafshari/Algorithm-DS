@@ -12,33 +12,75 @@
 //   return [-1, -1];
 // }
 
+// function maxProduct(nums: number[]): number {
+//   let max = 0;
+//   let prefix = 1;
+//   for (let i = 0; i < nums.length; i++) {
+//     if (nums[i] === 0) {
+//       prefix = 1;
+//       continue;
+//     }
+//     prefix = prefix * nums[i];
+//     max = prefix > max ? prefix : max;
+//   }
+//   let suffix = 1;
+//   for (let i = nums.length - 1; i >= 0; i--) {
+//     if (nums[i] === 0) {
+//       suffix = 1;
+//       continue;
+//     }
+//     suffix = suffix * nums[i];
+//     max = suffix > max ? suffix : max;
+//   }
+//   return max;
+// }
 function maxProduct(nums: number[]): number {
-  let max = 0;
+  let max = Infinity * -1;
   let prefix = 1;
   for (let i = 0; i < nums.length; i++) {
     if (nums[i] === 0) {
       prefix = 1;
+      max = Math.max(max, 0);
       continue;
     }
-    prefix = prefix * nums[i];
-    max = prefix > max ? prefix : max;
+    prefix *= nums[i];
+    max = Math.max(max, prefix);
   }
+
   let suffix = 1;
   for (let i = nums.length - 1; i >= 0; i--) {
     if (nums[i] === 0) {
       suffix = 1;
+      max = Math.max(max, 0);
       continue;
     }
-    suffix = suffix * nums[i];
-    max = suffix > max ? suffix : max;
+    suffix *= nums[i];
+    max = Math.max(max, suffix);
   }
   return max;
 }
 
+// function maxProfit(prices: number[]): number {
+//   let buy = Infinity;
+//   let sell = 0;
+//   let profit = 0;
+//   for (const price of prices) {
+//     if (price < buy) {
+//       buy = price;
+//       sell = 0;
+//       continue;
+//     } else if (price > sell) {
+//       sell = price;
+//       profit = sell - buy > profit ? sell - buy : profit;
+//       continue;
+//     }
+//   }
+//   return profit;
+// }
 function maxProfit(prices: number[]): number {
-  let buy = Infinity;
-  let sell = 0;
   let profit = 0;
+  let sell = 0;
+  let buy = Infinity;
   for (const price of prices) {
     if (price < buy) {
       buy = price;
@@ -46,31 +88,35 @@ function maxProfit(prices: number[]): number {
       continue;
     } else if (price > sell) {
       sell = price;
-      profit = sell - buy > profit ? sell - buy : profit;
-      continue;
+      profit = Math.max(profit, sell - buy);
     }
   }
   return profit;
 }
 
+// function productExceptSelf(nums: number[]): number[] {
+//   const n = nums.length;
+//   const result: number[] = new Array(n).fill(1);
+
+//   let prefix = 1;
+//   for (let i = 0; i < n; i++) {
+//     result[i] = prefix;
+//     prefix *= nums[i];
+//   }
+
+//   let suffix = 1;
+//   for (let i = n - 1; i >= 0; i--) {
+//     result[i] *= suffix;
+//     suffix *= nums[i];
+//   }
+
+//   return result;
+// }
 function productExceptSelf(nums: number[]): number[] {
-  const n = nums.length;
-  const result: number[] = new Array(n).fill(1);
-
-  let prefix = 1;
-  for (let i = 0; i < n; i++) {
-    result[i] = prefix;
-    prefix *= nums[i];
-  }
-
-  let suffix = 1;
-  for (let i = n - 1; i >= 0; i--) {
-    result[i] *= suffix;
-    suffix *= nums[i];
-  }
-
-  return result;
+  let res: number[] = new Array(nums.length).fill(null);
+  console.log(res);
 }
+console.log(productExceptSelf([1, 2, 3, 4]));
 
 function maxSubArray(nums: number[]): number {
   let max = Infinity * -1;
@@ -209,5 +255,3 @@ function subarraySum(nums: number[], k: number): number {
   console.log(prefixMap);
   return count;
 }
-
-console.log(subarraySum([1, 1, 1], 2));
