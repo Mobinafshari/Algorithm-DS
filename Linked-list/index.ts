@@ -175,6 +175,17 @@ class LinkedList<T> {
 
     return false;
   }
+  reverse2(): CustomNode<T> | null {
+    let current = this.head;
+    let prev: CustomNode<T> | null = null;
+    while (current !== null) {
+      let next = current?.next;
+      current!.next = prev;
+      prev = current;
+      current = next!;
+    }
+    return prev;
+  }
   getMiddle(): CustomNode<T> | null {
     let slow = this.head;
     let fast = this.head;
@@ -354,4 +365,4 @@ list.append(120);
 list.append(7);
 list.append(2);
 
-console.log(list.sort2());
+console.log(list.reverse2());
