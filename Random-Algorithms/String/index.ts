@@ -10,9 +10,11 @@ function countSubstrings(s: string): number {
   };
 
   for (let i = 0; i < s.length; i++) {
-    expand(i, i);    
-    expand(i, i + 1); 
+    expand(i, i);
+    expand(i, i + 1);
   }
 
   return count;
 }
+
+console.log(countSubstrings("aaa"));
