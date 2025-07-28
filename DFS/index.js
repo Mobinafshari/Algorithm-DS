@@ -10,19 +10,31 @@ const graph = {
   I: []
 };
 
-function dfs(graph, start) {
+// function dfs(graph, start) {
+//   const visited = new Set();
+
+//   function visit(node) {
+//     if (visited.has(node)) return;
+//     visited.add(node);
+//     for (const neighbor of graph[node]) {
+//       visit(neighbor);
+//     }
+//   }
+
+//   visit(start);
+//   return Array.from(visited);
+// }
+
+function dfs(graph , start){
   const visited = new Set();
-
-  function visit(node) {
-    if (visited.has(node)) return;
-    visited.add(node);
-    for (const neighbor of graph[node]) {
-      visit(neighbor);
-    }
+  visit(start)
+  function visit(node ){
+   if(visited.has(node)) return;
+   visited.add(node);
+   for(const neighbor of graph[node]){
+    visit(neighbor)
+   }
   }
-
-  visit(start);
-  return Array.from(visited);
+  return [...visited]
 }
-
 console.log(dfs(graph, 'A'));
