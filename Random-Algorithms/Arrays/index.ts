@@ -287,11 +287,23 @@ function sortArray(nums: number[]): number[] {
         res.push(arrTwo.shift()!);
       }
     }
-    return [...res ,...arrOne, ...arrTwo]; 
+    return [...res, ...arrOne, ...arrTwo];
   }
 }
 
-
+function insertionSortList(head: number[]): number[] {
+  for (let i = 1; i < head.length; i++) {
+    let temp = head[i];
+    let j = i - 1;
+    while (j >= 0 && head[j] > temp) {
+      head[j + 1] = head[j];
+      j--;
+    }
+    head[j + 1] = temp;
+  }
+  return head;
+}
+console.log(insertionSortList([4, 2, 1, 3]));
 function subarraySum(nums: number[], k: number): number {
   const prefixMap = new Map<number, number>();
   let sum = 0;
