@@ -169,7 +169,6 @@ function containsDuplicate(nums: number[]): boolean {
   return set.size !== nums.length;
 }
 
-
 function search(nums: number[], target: number): number {
   let left = 0,
     right = nums.length - 1;
@@ -224,50 +223,74 @@ function threeSum(nums: number[]): number[][] {
 
   return res;
 }
+// function sortArray(nums: number[]): number[] {
+//   return sort(nums);
+
+//   function sort(numbers: number[]): number[] {
+//     if (numbers.length < 2) return numbers;
+
+//     const middle = Math.floor(numbers.length / 2);
+//     const left = numbers.slice(0, middle);
+//     const right = numbers.slice(middle);
+
+//     const sortedLeft = sort(left);
+//     const sortedRight = sort(right);
+
+//     return merge(sortedLeft, sortedRight);
+//   }
+
+//   function merge(arrOne: number[], arrTwo: number[]): number[] {
+//     const res: number[] = [];
+//     let i = 0;
+//     let j = 0;
+
+//     while (i < arrOne.length && j < arrTwo.length) {
+//       if (arrOne[i] <= arrTwo[j]) {
+//         res.push(arrOne[i]);
+//         i++;
+//       } else {
+//         res.push(arrTwo[j]);
+//         j++;
+//       }
+//     }
+
+//     while (i < arrOne.length) {
+//       res.push(arrOne[i]);
+//       i++;
+//     }
+
+//     while (j < arrTwo.length) {
+//       res.push(arrTwo[j]);
+//       j++;
+//     }
+
+//     return res;
+//   }
+// }
 function sortArray(nums: number[]): number[] {
   return sort(nums);
 
-  function sort(numbers: number[]): number[] {
-    if (numbers.length < 2) return numbers;
-
-    const middle = Math.floor(numbers.length / 2);
-    const left = numbers.slice(0, middle);
-    const right = numbers.slice(middle);
-
-    const sortedLeft = sort(left);
-    const sortedRight = sort(right);
-
-    return merge(sortedLeft, sortedRight);
+  function sort(arr: number[]): number[] {
+    if (arr.length < 2) return arr;
+    const middle = Math.floor(arr.length / 2);
+    const left = arr.slice(0, middle);
+    const right = arr.slice(middle);
+    return merge(sort(left), sort(right));
   }
 
   function merge(arrOne: number[], arrTwo: number[]): number[] {
     const res: number[] = [];
-    let i = 0;
-    let j = 0;
-
-    while (i < arrOne.length && j < arrTwo.length) {
-      if (arrOne[i] <= arrTwo[j]) {
-        res.push(arrOne[i]);
-        i++;
+    while (arrOne.length && arrTwo.length) {
+      if (arrOne[0] < arrTwo[0]) {
+        res.push(arrOne.shift()!);
       } else {
-        res.push(arrTwo[j]);
-        j++;
+        res.push(arrTwo.shift()!);
       }
     }
-
-    while (i < arrOne.length) {
-      res.push(arrOne[i]);
-      i++;
-    }
-
-    while (j < arrTwo.length) {
-      res.push(arrTwo[j]);
-      j++;
-    }
-
-    return res;
+    return [...res ,...arrOne, ...arrTwo]; 
   }
 }
+
 
 function subarraySum(nums: number[], k: number): number {
   const prefixMap = new Map<number, number>();
