@@ -160,10 +160,16 @@ function maxSubArray(nums: number[]): number {
   return max;
 }
 
+// function containsDuplicate(nums: number[]): boolean {
+//   const set = new Set(nums);
+//   return set.size !== nums.length;
+// }
 function containsDuplicate(nums: number[]): boolean {
-  const set = new Set(nums);
+  const set = new Set<number>(nums);
   return set.size !== nums.length;
 }
+
+
 function search(nums: number[], target: number): number {
   let left = 0,
     right = nums.length - 1;
