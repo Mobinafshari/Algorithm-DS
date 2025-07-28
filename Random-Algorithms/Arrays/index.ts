@@ -303,21 +303,38 @@ function insertionSortList(head: number[]): number[] {
   }
   return head;
 }
-console.log(insertionSortList([4, 2, 1, 3]));
-function subarraySum(nums: number[], k: number): number {
-  const prefixMap = new Map<number, number>();
-  let sum = 0;
-  let count = 0;
+// function subarraySum(nums: number[], k: number): number {
+//   const prefixMap = new Map<number, number>();
+//   let sum = 0;
+//   let count = 0;
 
+//   prefixMap.set(0, 1);
+//   for (const num of nums) {
+//     sum += num;
+//     const remain = sum - k;
+//     if (prefixMap.has(remain)) {
+//       count += prefixMap.get(remain)!;
+//     }
+//     prefixMap.set(sum, (prefixMap.get(sum) ?? 0) + 1);
+//   }
+//   console.log(prefixMap);
+//   return count;
+// }
+
+function subarraySum(nums: number[], k: number): number {
+  let count = 0;
+  let prefixMap = new Map<number, number>();
   prefixMap.set(0, 1);
-  for (const num of nums) {
-    sum += num;
-    const remain = sum - k;
+  let sum = 0;
+  for (let i = 0; i < nums.length; i++) {
+    sum += nums[i];
+    let remain = sum - k;
     if (prefixMap.has(remain)) {
       count += prefixMap.get(remain)!;
     }
     prefixMap.set(sum, (prefixMap.get(sum) ?? 0) + 1);
   }
-  console.log(prefixMap);
   return count;
 }
+
+console.log(subarraySum([1, 1, 1], 2));
