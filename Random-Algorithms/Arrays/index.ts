@@ -359,5 +359,23 @@ function mergeSort(array: number[]): number[] {
     return [...res, ...arrOne, ...arrTwo];
   }
 }
+function binarySearch(nums: number[], target: number): number {
+  let left = 0;
+  let right = nums.length - 1;
 
-console.log(mergeSort([3, 0, 1, 6]));
+  while (left <= right) {
+    const middle = Math.floor((left + right) / 2);
+
+    if (nums[middle] === target) {
+      return middle;
+    } else if (nums[middle] < target) {
+      left = middle + 1;
+    } else {
+      right = middle - 1;
+    }
+  }
+
+  return -1;
+}
+
+console.log(binarySearch([-1, 0, 3, 5, 9, 12], 9));
