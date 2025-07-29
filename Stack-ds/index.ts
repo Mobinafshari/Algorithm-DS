@@ -35,19 +35,39 @@ class Stack<T> {
 }
 
 function asteroidCollision(asteroids: number[]): number[] {
-  const stack = new Stack<number>();
-  for (const number of asteroids) {
-    if (number > 0) {
-      stack.push(number);
-      continue;
+  const stack: number[] = [];
+
+  for (const asteroid of asteroids) {
+    let alive = true;
+
+    while (
+      alive &&
+      asteroid < 0 &&
+      stack.length &&
+      stack[stack.length - 1] > 0
+    ) {
+      const top = stack[stack.length - 1];
+
+      if (top < -asteroid) {
+        stack.pop(); 
+      } else if (top === -asteroid) {
+        stack.pop(); 
+        alive = false;
+      } else {
+        alive = false;
+      }
     }
-    const top = stack.peek();
-    if (top && number * -1 > top) {
-      stack.pop();
+
+    if (alive) {
+      stack.push(asteroid);
     }
   }
-  return stack.stack;
+
+  return stack;
 }
+
+console.log(asteroidCollision([-2, -1, 1, 2]));
+
 type Operator = "+" | "-" | "/" | "*";
 function evalRPN(tokens: string[]): number {
   const stack = new Stack<number>();
@@ -94,5 +114,3 @@ function dailyTemperatures(temperatures: number[]): number[] {
 
   return res;
 }
-
-console.log(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]));
