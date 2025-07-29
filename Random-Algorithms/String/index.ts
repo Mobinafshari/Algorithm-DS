@@ -31,25 +31,43 @@ function countSubstrings(s: string): number {
   }
   return count;
 }
-console.log(countSubstrings("abba"));
+
+// function isValid(s: string): boolean {
+//   const stack: string[] = [];
+//   const map: Record<string, string> = {
+//     ")": "(",
+//     "]": "[",
+//     "}": "{",
+//   };
+
+//   for (const char of s) {
+//     if (["(", "[", "{"].includes(char)) {
+//       stack.push(char);
+//     } else {
+//       const top = stack.pop();
+//       if (top !== map[char]) return false;
+//     }
+//   }
+
+//   return stack.length === 0;
+// }
 
 function isValid(s: string): boolean {
-  const stack: string[] = [];
-  const map: Record<string, string> = {
+  const charsStack: string[] = [];
+  const mapper = {
     ")": "(",
-    "]": "[",
     "}": "{",
+    "]": "[",
   };
 
-  for (const char of s) {
-    if (["(", "[", "{"].includes(char)) {
-      stack.push(char);
+  for (const token of s) {
+    if (["}", "]", ")"].includes(token)) {
+      const last = charsStack.pop();
+      if (last !== mapper[token]) return false;
     } else {
-      const top = stack.pop();
-      if (top !== map[char]) return false;
+      charsStack.push(token);
     }
   }
-
-  return stack.length === 0;
+  return charsStack.length === 0;
 }
-
+console.log(isValid("(("));
