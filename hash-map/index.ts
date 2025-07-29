@@ -69,9 +69,18 @@ function canConstruct(ransomNote: string, magazine: string): boolean {
 //   return Array.from(group.values());
 // }
 
-
-function groupAnagrams(strs: string[]): string[][] {}
-console.log(groupAnagrams())
+function groupAnagrams(strs: string[]): string[][] {
+  const groupMap = new Map<string, string[]>();
+  for (const word of strs) {
+    const sorted = word.split("").sort().join("");
+    if (groupMap.has(sorted)) {
+      groupMap.set(sorted, [...groupMap.get(sorted)!, word]);
+    } else {
+      groupMap.set(sorted, [word]);
+    }
+  }
+  return [...groupMap.values()];
+}
 
 class RandomizedSet {
   private map: Map<number, number>;
