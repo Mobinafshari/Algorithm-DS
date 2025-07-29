@@ -336,5 +336,3 @@ function subarraySum(nums: number[], k: number): number {
   }
   return count;
 }
-
-console.log(subarraySum([1, 1, 1], 2));

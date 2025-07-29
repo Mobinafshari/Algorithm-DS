@@ -49,9 +49,9 @@ function asteroidCollision(asteroids: number[]): number[] {
       const top = stack[stack.length - 1];
 
       if (top < -asteroid) {
-        stack.pop(); 
+        stack.pop();
       } else if (top === -asteroid) {
-        stack.pop(); 
+        stack.pop();
         alive = false;
       } else {
         alive = false;
@@ -65,8 +65,6 @@ function asteroidCollision(asteroids: number[]): number[] {
 
   return stack;
 }
-
-console.log(asteroidCollision([-2, -1, 1, 2]));
 
 type Operator = "+" | "-" | "/" | "*";
 function evalRPN(tokens: string[]): number {
@@ -97,20 +95,40 @@ function evalRPN(tokens: string[]): number {
   }
   return stack.stack[0];
 }
+// function dailyTemperatures(temperatures: number[]): number[] {
+//   const res: number[] = new Array(temperatures.length).fill(0);
+//   const stack = new Stack<number>();
+
+//   for (let i = 0; i < temperatures.length; i++) {
+//     while (
+//       stack.stack.length > 0 &&
+//       temperatures[i] > temperatures[stack.stack[stack.stack.length - 1]]
+//     ) {
+//       const prevIndex = stack.pop()!;
+//       res[prevIndex] = i - prevIndex;
+//     }
+//     stack.push(i);
+//   }
+
+//   return res;
+// }
+
 function dailyTemperatures(temperatures: number[]): number[] {
-  const res: number[] = new Array(temperatures.length).fill(0);
-  const stack = new Stack<number>();
+  const result: number[] = new Array(temperatures.length).fill(0);
+  const stack: number[] = [];
 
   for (let i = 0; i < temperatures.length; i++) {
     while (
-      stack.stack.length > 0 &&
-      temperatures[i] > temperatures[stack.stack[stack.stack.length - 1]]
+      stack.length &&
+      temperatures[i] > temperatures[stack[stack.length - 1]]
     ) {
       const prevIndex = stack.pop()!;
-      res[prevIndex] = i - prevIndex;
+      result[prevIndex] = i - prevIndex;
     }
     stack.push(i);
   }
 
-  return res;
+  return result;
 }
+
+console.log(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]));
