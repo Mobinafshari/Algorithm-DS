@@ -22,37 +22,56 @@ function twoSum(nums: number[], target: number): number[] {
   return [-1, -1];
 }
 
+// function canConstruct(ransomNote: string, magazine: string): boolean {
+//   const wordsMap = new Map<string, number>();
+//   for (const word of magazine) {
+//     if (wordsMap.has(word)) {
+//       wordsMap.set(word, wordsMap.get(word)! + 1);
+//       continue;
+//     }
+//     wordsMap.set(word, 1);
+//   }
+//   for (const word of ransomNote) {
+//     if (wordsMap.has(word)) {
+//       if (wordsMap.get(word) === 0) return false;
+//       wordsMap.set(word, wordsMap.get(word)! - 1);
+//     }
+//     return false;
+//   }
+//   return true;
+// }
+
 function canConstruct(ransomNote: string, magazine: string): boolean {
   const wordsMap = new Map<string, number>();
-  for (const word of magazine) {
-    if (wordsMap.has(word)) {
-      wordsMap.set(word, wordsMap.get(word)! + 1);
-      continue;
-    }
-    wordsMap.set(word, 1);
+  for (const letter of magazine) {
+    wordsMap.set(letter, (wordsMap.get(letter) ?? 0) + 1);
   }
-  for (const word of ransomNote) {
-    if (wordsMap.has(word)) {
-      if (wordsMap.get(word) === 0) return false;
-      wordsMap.set(word, wordsMap.get(word)! - 1);
+  for (const letter of ransomNote) {
+    if (wordsMap.get(letter) ?? 0 > 0) {
+      wordsMap.set(letter, wordsMap.get(letter)! - 1);
+    } else {
+      return false;
     }
-    return false;
   }
   return true;
 }
 
-function groupAnagrams(strs: string[]): string[][] {
-  const group = new Map<string, string[]>();
-  for (const str of strs) {
-    const words = str.split("").sort().join("");
-    if (group.has(words)) {
-      group.set(words, [...group.get(words)!, str]);
-      continue;
-    }
-    group.set(words, [str]);
-  }
-  return Array.from(group.values());
-}
+// function groupAnagrams(strs: string[]): string[][] {
+//   const group = new Map<string, string[]>();
+//   for (const str of strs) {
+//     const words = str.split("").sort().join("");
+//     if (group.has(words)) {
+//       group.set(words, [...group.get(words)!, str]);
+//       continue;
+//     }
+//     group.set(words, [str]);
+//   }
+//   return Array.from(group.values());
+// }
+
+
+function groupAnagrams(strs: string[]): string[][] {}
+console.log(groupAnagrams())
 
 class RandomizedSet {
   private map: Map<number, number>;
