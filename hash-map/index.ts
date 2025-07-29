@@ -1,12 +1,23 @@
+// function twoSum(nums: number[], target: number): number[] {
+//   const map = new Map<number, number>();
+//   for (let i = 0; i < nums.length; i++) {
+//     const number = nums[i];
+//     const remain = target - number;
+//     if (map.has(remain)) {
+//       return [i, map.get(remain)!];
+//     }
+//     map.set(nums[i], i);
+//   }
+//   return [-1, -1];
+// }
 function twoSum(nums: number[], target: number): number[] {
-  const map = new Map<number, number>();
+  const remainMap = new Map<number, number>();
   for (let i = 0; i < nums.length; i++) {
-    const number = nums[i];
-    const remain = target - number;
-    if (map.has(remain)) {
-      return [i, map.get(remain)!];
+    const remain = target - nums[i];
+    if (remainMap.has(remain)) {
+      return [remainMap.get(remain)!, i];
     }
-    map.set(nums[i], i);
+    remainMap.set(nums[i], i);
   }
   return [-1, -1];
 }
@@ -122,12 +133,3 @@ class LRUCache {
     this.cache.set(key, value);
   }
 }
-
-const cache = new LRUCache(2);
-cache.put(1, 1);
-cache.put(2, 2);
-cache.put(3, 3);
-cache.put(4, 4);
-cache.put(6, 6);
-
-console.log(cache.get(6));
