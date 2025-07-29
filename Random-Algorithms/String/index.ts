@@ -70,4 +70,16 @@ function isValid(s: string): boolean {
   }
   return charsStack.length === 0;
 }
-console.log(isValid("(("));
+
+function lengthOfLongestSubstring(s: string): number {
+  let res = 0;
+  const letterSet = new Set<string>();
+  for (const letter of s) {
+    if (letterSet.has(letter)) return res;
+    res++;
+    letterSet.add(letter);
+  }
+  return res;
+}
+
+console.log(lengthOfLongestSubstring("pwwkew"));
