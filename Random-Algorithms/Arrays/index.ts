@@ -336,3 +336,28 @@ function subarraySum(nums: number[], k: number): number {
   }
   return count;
 }
+
+function mergeSort(array: number[]): number[] {
+  return sort(array);
+  function sort(arr: number[]): number[] {
+    if (arr.length < 2) return arr;
+    const middle = Math.floor(arr.length / 2);
+    const left = arr.slice(0, middle);
+    const right = arr.slice(middle);
+
+    return merge(sort(left), sort(right));
+  }
+  function merge(arrOne: number[], arrTwo: number[]): number[] {
+    const res: number[] = [];
+    while (arrOne.length && arrTwo.length) {
+      if (arrOne[0] <= arrTwo[0]) {
+        res.push(arrOne.shift()!);
+      } else if (arrTwo[0] < arrOne[0]) {
+        res.push(arrTwo.shift()!);
+      }
+    }
+    return [...res, ...arrOne, ...arrTwo];
+  }
+}
+
+console.log(mergeSort([3, 0, 1, 6]));
