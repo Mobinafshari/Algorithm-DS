@@ -84,7 +84,7 @@ function groupAnagrams(strs: string[]): string[][] {
 
 class RandomizedSet {
   private map: Map<number, number>;
-  private list: number[];
+  public list: number[];
 
   constructor() {
     this.map = new Map();
@@ -104,7 +104,6 @@ class RandomizedSet {
 
     const idx = this.map.get(val)!;
     const last = this.list[this.list.length - 1];
-
     this.list[idx] = last;
     this.map.set(last, idx);
 
@@ -133,31 +132,66 @@ function firstMissingPositive(nums: number[]): number {
   return [...set][0];
 }
 
+// class LRUCache {
+//   private cache: Map<number, number>;
+//   private capacity: number;
+
+//   constructor(capacity: number) {
+//     this.cache = new Map();
+//     this.capacity = capacity;
+//   }
+
+//   get(key: number): number {
+//     if (!this.cache.has(key)) return -1;
+
+//     const value = this.cache.get(key)!;
+//     this.cache.delete(key);
+//     this.cache.set(key, value);
+//     return value;
+//   }
+
+//   put(key: number, value: number): void {
+//     if (this.cache.has(key)) {
+//       this.cache.delete(key);
+//     } else if (this.cache.size >= this.capacity) {
+//       const lruKey = this.cache.keys().next().value;
+//       this.cache.delete(lruKey);
+//     }
+//     this.cache.set(key, value);
+//   }
+// }
+
 class LRUCache {
-  private cache: Map<number, number>;
-  private capacity: number;
-
-  constructor(capacity: number) {
-    this.cache = new Map();
-    this.capacity = capacity;
+  private count: number;
+  public cache: Map<number, number>;
+  private size: number;
+  constructor(size: number) {
+    this.size = size;
+    this.cache = new Map<number, number>();
+    this.count = 0;
   }
-
-  get(key: number): number {
-    if (!this.cache.has(key)) return -1;
-
-    const value = this.cache.get(key)!;
+  put(key: number, value: number) {
+    if (this.count < this.size) {
+      this.cache.set(key, value);
+    } else {
+      const oldKey = this.cache.keys().next().value;
+      this.cache.delete(oldKey);
+      this.cache.set(key, value);
+    }
+    this.count++;
+  }
+  get(key: number): number | undefined {
+    if (!this.cache.has(key)) return undefined;
+    const value = this.cache.get(key);
     this.cache.delete(key);
-    this.cache.set(key, value);
+    this.cache.set(key, value!);
     return value;
   }
-
-  put(key: number, value: number): void {
-    if (this.cache.has(key)) {
-      this.cache.delete(key);
-    } else if (this.cache.size >= this.capacity) {
-      const lruKey = this.cache.keys().next().value;
-      this.cache.delete(lruKey);
-    }
-    this.cache.set(key, value);
-  }
 }
+
+const cc = new LRUCache(2);
+cc.put(1, 1);
+cc.put(2, 2);
+cc.get(1);
+cc.put(3, 3);
+console.log(cc.cache);
