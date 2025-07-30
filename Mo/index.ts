@@ -53,8 +53,8 @@ Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
   
   
   4.Complexities :
-  time ===>
-  space ===>
+  time ===> O(logn)
+  space ===> O(1)
 */
 
 function findMin(nums: number[]): number {
