@@ -1,18 +1,17 @@
 function frequencySort(nums: number[]): number[] {
-  const countMap = new Map<number, number>();
-  const res: number[] = [];
-  for (const number of nums) {
-    countMap.set(number, (countMap.get(number) ?? 0) + 1);
+  const freq = new Map<number, number>();
+  for (const num of nums) {
+    freq.set(num, (freq.get(num) ?? 0) + 1);
   }
-  const sortedFrequencies = [...countMap].sort((a, b) => a[1] - b[1]);
-  for (const item of sortedFrequencies) {
-    let count = item[1];
-    while (count !== 0) {
-      res.push(item[0]);
-      count--;
+
+  return nums.sort((a, b) => {
+    const fa = freq.get(a)!;
+    const fb = freq.get(b)!;
+    if (fa !== fb) {
+      return fa - fb;
     }
-  }
-  return res;
+    return b - a;
+  });
 }
 
 /*
@@ -57,8 +56,6 @@ Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
   time ===>
   space ===>
 */
-
-
 
 function findMin(nums: number[]): number {
   let right = nums.length - 1;
