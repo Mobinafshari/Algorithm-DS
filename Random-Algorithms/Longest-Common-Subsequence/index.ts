@@ -1,46 +1,40 @@
-
-
 function longestCommonSubsequence(text1: string, text2: string): number {
-  const textOneSequences = generateSubsequences(text1);
-  const textTwoSequences = generateSubsequences(text2);
+  if (text1 === text2) return text1.length;
 
-  let result = 0;
-  if (textOneSequences.length > textTwoSequences.length) {
-    for (let sequence of textTwoSequences) {
-      if (textOneSequences.includes(sequence)) {
-        result = sequence.length > result ? sequence.length : result;
-      }
-    }
-  } else {
-    for (let sequence of textOneSequences) {
-      if (textTwoSequences.includes(sequence)) {
-        result = sequence.length > result ? sequence.length : result;
-      }
-    }
-  }
-
-  function generateSubsequences(input: string) {
-    const subsequences: string[] = [];
-    const length = input.length;
-
-    for (let i = 0; i < 1 << length; i++) {
-      let currentSubsequence = "";
-
-      for (let j = 0; j < length; j++) {
-        if (i & (1 << j)) {
-          currentSubsequence += input[j];
-        }
-      }
-
-      subsequences.push(currentSubsequence);
-    }
-
-    return subsequences;
-  }
-  return result;
+  // const textOneSequences = generateSubsequences(text1);
+  // const textTwoSequences = generateSubsequences(text2);
+  // let result = 0;
+  // if (textOneSequences.length > textTwoSequences.length) {
+  //   for (let sequence of textTwoSequences) {
+  //     if (textOneSequences.includes(sequence)) {
+  //       result = sequence.length > result ? sequence.length : result;
+  //     }
+  //   }
+  // } else {
+  //   for (let sequence of textOneSequences) {
+  //     if (textTwoSequences.includes(sequence)) {
+  //       result = sequence.length > result ? sequence.length : result;
+  //     }
+  //   }
+  // }
+  // function generateSubsequences(input: string) {
+  //   const subsequences: string[] = [];
+  //   const length = input.length;
+  //   for (let i = 0; i < 1 << length; i++) {
+  //     let currentSubsequence = "";
+  //     for (let j = 0; j < length; j++) {
+  //       if (i & (1 << j)) {
+  //         currentSubsequence += input[j];
+  //       }
+  //     }
+  //     subsequences.push(currentSubsequence);
+  //   }
+  //   return subsequences;
+  // }
+  // return result;
 }
 
-console.log(longestCommonSubsequence("bl", "yby"));
+console.log(longestCommonSubsequence("abcde", "ace"));
 
 /*
 Example 1:
