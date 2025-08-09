@@ -72,14 +72,23 @@ function isValid(s: string): boolean {
 }
 
 function lengthOfLongestSubstring(s: string): number {
-  let res = 0;
-  const letterSet = new Set<string>();
-  for (const letter of s) {
-    if (letterSet.has(letter)) return res;
-    res++;
-    letterSet.add(letter);
+  let max = 0;
+  let start = 0; 
+  const letterMap = new Map<string, number>();
+
+  for (let i = 0; i < s.length; i++) {
+    const letter = s[i];
+
+    if (letterMap.has(letter) && letterMap.get(letter)! >= start) {
+      start = letterMap.get(letter)! + 1;
+    }
+
+    letterMap.set(letter, i);
+
+    max = Math.max(max, i - start + 1);
   }
-  return res;
+
+  return max;
 }
 
-console.log(lengthOfLongestSubstring("pwwkew"));
+console.log(lengthOfLongestSubstring("tmmzuxt"));
