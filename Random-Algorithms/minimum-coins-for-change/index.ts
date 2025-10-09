@@ -14,7 +14,6 @@ export default function minimumCoinsForChange(
       }
     }
   }
-  console.log(dp);
   return dp[target] === Infinity ? -1 : dp[target];
 }
 
