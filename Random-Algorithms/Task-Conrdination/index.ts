@@ -1,27 +1,22 @@
-function taskCoordinator(tasks: string[], k: number) {
+function taskCoordinator(tasks: string[], k: number): number {
   const countMap = new Map<string, number>();
   for (const task of tasks) {
     countMap.set(task, (countMap.get(task) ?? 0) + 1);
   }
-  const res: string[] = [];
 
-  const sortFrequently = [...countMap.entries()].sort((a, b) => b[1] - a[1]);
-  for (let i = 0; i < sortFrequently.length; i++) {
-    let [task, count] = sortFrequently[i];
-    let index = i;
-    while (count > 0) {
-      if (!!res[index]) {
-        index++;
-        continue;
-      }
-      res[index] = task;
-      index += k + 1;
-      count--;
-    }
-  }
-  console.log(res);
-  return res.length;
+  const counts = [...countMap.values()];
+  const maxCount = Math.max(...counts);
+  
+  const maxCountTasks = counts.filter((c) => c === maxCount).length;
+  console.log(maxCountTasks);
+
+  const partCount = maxCount - 1;
+  const partLength = k + 1;
+  const emptySlots = partCount * partLength + maxCountTasks;
+
+  return Math.max(tasks.length, emptySlots);
 }
+
 console.log(
   taskCoordinator(
     ["A", "A", "A", "B", "B", "B", "C", "C", "C", "D", "D", "E"],
