@@ -1,23 +1,46 @@
-class Trie {
-  words: string[];
+class TrieNode {
+  children: Map<string, TrieNode>;
+  isEndOfWord: boolean;
+
   constructor() {
-    this.words = [];
-  }
-
-  public insert(word: string): void {
-    this.words = [...this.words, word];
-  }
-
-  public search(word: string): boolean {
-    return this.words.includes(word);
-  }
-
-  public startsWith(prefix: string): boolean {
-    return this.words.some((word) => word.startsWith(prefix));
+    this.children = new Map();
+    this.isEndOfWord = false;
   }
 }
 
-const trie = new Trie();
-trie.insert("cat");
-console.log(trie.search("cat"));
-console.log(trie.startsWith("ca"));
+class Trie {
+  private root: TrieNode;
+
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  public insert(word: string): void {
+    let node = this.root;
+    for (const char of word) {
+      if (!node.children.has(char)) {
+        node.children.set(char, new TrieNode());
+      }
+      node = node.children.get(char)!;
+    }
+    node.isEndOfWord = true;
+  }
+
+  public search(word: string): boolean {
+    let node = this.root;
+    for (const char of word) {
+      if (!node.children.has(char)) return false;
+      node = node.children.get(char)!;
+    }
+    return node.isEndOfWord;
+  }
+
+  public startsWith(prefix: string): boolean {
+    let node = this.root;
+    for (const char of prefix) {
+      if (!node.children.has(char)) return false;
+      node = node.children.get(char)!;
+    }
+    return true;
+  }
+}
