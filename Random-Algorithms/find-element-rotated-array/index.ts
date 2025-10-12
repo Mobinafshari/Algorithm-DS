@@ -25,4 +25,4 @@ function findInRotatedArray(numbers: number[], target: number): number {
   return -1;
 }
 
-console.log(findInRotatedArray([2, 3, 4, 0, 1], 0)); // ✅ Output: 3
+console.log(findInRotatedArray([2, 3, 4, 0, 1], 0)); 
