@@ -48,6 +48,36 @@ class Trie {
     }
     return true;
   }
+  public autoComplete(prefix: string): string[] {
+    let node = this.root;
+    let words = [];
+    for (const char of prefix) {
+      if (node.children.has(char)) {
+        node = node.children.get(char)!;
+        continue;
+      }
+      return [];
+    }
+
+    for (const [key, val] of node.children) {
+      if (val.isLastChar) {
+        words.push(prefix + key);
+      }
+      if (val.children.size) {
+        this.dfs(val, prefix + key, words);
+      }
+    }
+    return words;
+  }
+
+  private dfs(node: TrieNode, prefix: string, words: string[]) {
+    for (const [key, val] of node.children) {
+      this.dfs(val, prefix + key, words);
+      if (val.isLastChar) {
+        words.push(prefix + key);
+      }
+    }
+  }
 }
 
 function printTrie(node: TrieNode, prefix = "") {
@@ -60,6 +90,8 @@ function printTrie(node: TrieNode, prefix = "") {
 const trie = new Trie();
 trie.insert("cat");
 trie.insert("car");
+trie.insert("carbon");
+trie.insert("car fix");
 trie.insert("hashem");
-console.log(trie.search("cat"));
+console.log(trie.autoComplete("ca"));
 // console.log(printTrie(trie.root));
