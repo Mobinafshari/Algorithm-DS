@@ -14,7 +14,7 @@ class Trie {
     this.root = new TrieNode();
   }
 
-  public insert(word: string) {
+  public insert(word: string): void {
     let node = this.root;
 
     for (const char of word) {
@@ -26,8 +26,28 @@ class Trie {
 
     node.isLastChar = true;
   }
-  public search(word: string) {}
-  public startsWith(prefix: string) {}
+  public search(word: string): boolean {
+    let node = this.root;
+    for (const char of word) {
+      if (node.children.has(char)) {
+        node = node.children.get(char)!;
+        continue;
+      }
+      return false;
+    }
+    return node.isLastChar;
+  }
+  public startsWith(prefix: string): boolean {
+    let node = this.root;
+    for (const char of prefix) {
+      if (node.children.has(char)) {
+        node = node.children.get(char)!;
+        continue;
+      }
+      return false;
+    }
+    return true;
+  }
 }
 
 function printTrie(node: TrieNode, prefix = "") {
@@ -41,4 +61,5 @@ const trie = new Trie();
 trie.insert("cat");
 trie.insert("car");
 trie.insert("hashem");
-console.log(printTrie(trie.root));
+console.log(trie.search("cat"));
+// console.log(printTrie(trie.root));
