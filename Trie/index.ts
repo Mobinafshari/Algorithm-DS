@@ -21,7 +21,6 @@ class Trie {
       if (!node.children.has(char)) {
         node.children.set(char, new TrieNode());
       }
-      console.log(node);
       node = node.children.get(char)!;
     }
 
@@ -31,5 +30,15 @@ class Trie {
   public startsWith(prefix: string) {}
 }
 
+function printTrie(node: TrieNode, prefix = "") {
+  for (const [char, child] of node.children) {
+    console.log(`${prefix}└── ${char}${child.isLastChar ? " 🟢" : ""}`);
+    printTrie(child, prefix + "    ");
+  }
+}
+
 const trie = new Trie();
-console.log(trie.insert("hashem"));
+trie.insert("cat");
+trie.insert("car");
+trie.insert("hashem");
+console.log(printTrie(trie.root));
