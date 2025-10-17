@@ -93,5 +93,6 @@ trie.insert("car");
 trie.insert("carbon");
 trie.insert("car fix");
 trie.insert("hashem");
-console.log(trie.autoComplete("ca"));
+trie.insert("hamid");
+console.log(trie.autoComplete("ha"));
 // console.log(printTrie(trie.root));
