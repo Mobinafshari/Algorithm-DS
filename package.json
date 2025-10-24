@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "This repository is a personal collection of implemented data structures and algorithms for learning and practice purposes and I will implement them several times.",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
