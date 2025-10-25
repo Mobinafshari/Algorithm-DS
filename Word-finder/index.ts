@@ -65,4 +65,4 @@ const dic = new WordDictionary();
 dic.addWord("mobin");
 dic.addWord("mohsen");
 console.log(dic.search("mo..en"));
-// console.log(printWords(dic.root));
+console.log(printWords(dic.root));
