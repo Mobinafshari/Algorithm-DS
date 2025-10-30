@@ -13,4 +13,35 @@ function lowestCommonAncestor(
   root: TreeNode | null,
   p: TreeNode | null,
   q: TreeNode | null
-): TreeNode | null {}
+): TreeNode | null {
+  if (!root || !p || !q) return null;
+
+  function dfs(node: TreeNode | null): TreeNode | null {
+    if (!node) return null;
+
+    if (node === p || node === q) return node;
+
+    const left = dfs(node.left);
+    const right = dfs(node.right);
+
+    if (left && right) return node;
+
+    return left ?? right;
+  }
+
+  return dfs(root);
+}
+
+const root = new TreeNode(
+  3,
+  new TreeNode(
+    5,
+    new TreeNode(6),
+    new TreeNode(2, new TreeNode(7), new TreeNode(4))
+  ),
+  new TreeNode(1, new TreeNode(0), new TreeNode(8))
+);
+
+const p = root.left;
+const q = root.right;
+console.log(lowestCommonAncestor(root, p, q));
