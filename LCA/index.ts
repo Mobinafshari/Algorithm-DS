@@ -44,4 +44,8 @@ const root = new TreeNode(
 
 const p = root.left;
 const q = root.right;
-console.log(lowestCommonAncestor(root, p, q));
+
+
+function isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {
+    
+};
