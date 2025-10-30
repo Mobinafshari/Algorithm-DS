@@ -32,20 +32,24 @@ function lowestCommonAncestor(
   return dfs(root);
 }
 
+function isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {
+  if (!root) return false;
+  if (isSameTree(root, subRoot)) return true;
+  return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+}
+
+function isSameTree(a: TreeNode | null, b: TreeNode | null): boolean {
+  if (!a && !b) return true;
+  if (!a || !b) return false;
+  if (a.val !== b.val) return false;
+  return isSameTree(a.left, b.left) && isSameTree(a.right, b.right);
+}
 const root = new TreeNode(
   3,
-  new TreeNode(
-    5,
-    new TreeNode(6),
-    new TreeNode(2, new TreeNode(7), new TreeNode(4))
-  ),
-  new TreeNode(1, new TreeNode(0), new TreeNode(8))
+  new TreeNode(4, new TreeNode(1), new TreeNode(2)),
+  new TreeNode(5)
 );
 
-const p = root.left;
-const q = root.right;
+const subRoot = new TreeNode(4, new TreeNode(1), new TreeNode(2));
 
-
-function isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {
-    
-};
+console.log("--", isSubtree(root, subRoot));
