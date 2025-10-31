@@ -64,19 +64,16 @@ function levelOrder(root: TreeNode | null): number[][] {
   if (!root) return [];
   const result: number[][] = [];
   function bfs(root: TreeNode): void {
-    const queue: { node: TreeNode; index: number }[] = [
-      { node: root, index: 0 },
-    ];
+    const queue: [TreeNode, number][] = [[root, 0]];
 
-    while (queue.length > 0) {
-      const { node, index } = queue.shift()!;
-      if (result[index]) {
-        result[index].push(node.val);
-      } else {
-        result[index] = [node.val];
-      }
-      if (node.left) queue.push({ node: node.left, index: index + 1 });
-      if (node.right) queue.push({ node: node.right, index: index + 1 });
+    while (queue.length) {
+      const [node, level] = queue.shift()!;
+
+      if (!result[level]) result[level] = [];
+      result[level].push(node.val);
+
+      if (node.left) queue.push([node.left, level + 1]);
+      if (node.right) queue.push([node.right, level + 1]);
     }
   }
 
