@@ -61,10 +61,32 @@ function invertTree(root: TreeNode | null): TreeNode | null {
 }
 
 function levelOrder(root: TreeNode | null): number[][] {
-  
+  if (!root) return [];
+  const result: number[][] = [];
+  function bfs(root: TreeNode): void {
+    const queue: { node: TreeNode; index: number }[] = [
+      { node: root, index: 0 },
+    ];
+
+    while (queue.length > 0) {
+      const { node, index } = queue.shift()!;
+      if (result[index]) {
+        result[index].push(node.val);
+      } else {
+        result[index] = [node.val];
+      }
+      if (node.left) queue.push({ node: node.left, index: index + 1 });
+      if (node.right) queue.push({ node: node.right, index: index + 1 });
+    }
+  }
+
+  bfs(root!);
+  return result;
 }
 const root = new TreeNode(
-  4,
-  new TreeNode(2, new TreeNode(1), new TreeNode(3)),
-  new TreeNode(7, new TreeNode(6), new TreeNode(9))
+  3,
+  new TreeNode(9, new TreeNode(24, new TreeNode(33))),
+  new TreeNode(20, new TreeNode(15), new TreeNode(7))
 );
+
+console.log("+++", levelOrder(root));
