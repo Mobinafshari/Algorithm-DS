@@ -45,9 +45,24 @@ function isSameTree(a: TreeNode | null, b: TreeNode | null): boolean {
   return isSameTree(a.left, b.left) && isSameTree(a.right, b.right);
 }
 
-function invertTree(root: TreeNode | null): TreeNode | null {}
+function invertTree(root: TreeNode | null): TreeNode | null {
+  if (!root) return null;
+
+  function dfs(node: TreeNode) {
+    let left = node.left;
+    let right = node.right;
+    node.left = right;
+    node.right = left;
+    if (node.left) dfs(node.left);
+    if (node.right) dfs(node.right);
+  }
+  dfs(root);
+  return root;
+}
 const root = new TreeNode(
   4,
   new TreeNode(2, new TreeNode(1), new TreeNode(3)),
   new TreeNode(7, new TreeNode(6), new TreeNode(9))
 );
+
+console.log("---", invertTree(root));
