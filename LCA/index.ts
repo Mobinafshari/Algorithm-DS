@@ -80,10 +80,11 @@ function levelOrder(root: TreeNode | null): number[][] {
   bfs(root!);
   return result;
 }
+
+function maxDepth(root: TreeNode | null): number {}
 const root = new TreeNode(
   3,
-  new TreeNode(9, new TreeNode(24, new TreeNode(33))),
+  new TreeNode(9),
   new TreeNode(20, new TreeNode(15), new TreeNode(7))
 );
-
-console.log("+++", levelOrder(root));
+console.log("+++", maxDepth(root));
