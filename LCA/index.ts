@@ -81,7 +81,23 @@ function levelOrder(root: TreeNode | null): number[][] {
   return result;
 }
 
-function maxDepth(root: TreeNode | null): number {}
+function maxDepth(root: TreeNode | null): number {
+  let rootLevel = 0;
+
+  function dfs(node: TreeNode, level = 1) {
+    rootLevel = Math.max(rootLevel, level);
+    if (node.left) {
+      dfs(node.left, level + 1);
+    }
+    if (node.right) {
+      dfs(node.right, level + 1);
+    }
+  }
+  if (root) {
+    dfs(root!);
+  }
+  return rootLevel;
+}
 const root = new TreeNode(
   3,
   new TreeNode(9),
